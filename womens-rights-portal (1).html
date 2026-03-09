@@ -1,0 +1,2244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HerLaw — Women's Rights & Legal Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --beige: #EDE8DF;
+    --soft-sage: #8FAF8F;
+    --sage: #6B9E6B;
+    --deep-sage: #3D6B3D;
+    --olive: #7A8C5A;
+    --warm-white: #FFFDF9;
+    --charcoal: #2C2C2C;
+    --mid-grey: #6B6B6B;
+    --light-grey: #C4BFB5;
+    --accent-gold: #C4A96B;
+    --pale-green: #E8F0E8;
+    --rose: #C4826B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ─── PAGES ─── */
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: block; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,247,242,0.95); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--beige);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--deep-sage);
+    cursor: pointer;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo span { color: var(--accent-gold); }
+  .nav-links { display: flex; gap: 2px; }
+  .nav-btn {
+    background: none; border: none;
+    font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500;
+    color: var(--mid-grey); cursor: pointer;
+    padding: 8px 16px; border-radius: 20px;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover, .nav-btn.active { background: var(--pale-green); color: var(--deep-sage); }
+  .breadcrumb {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.8rem; color: var(--mid-grey);
+    padding: 80px 5% 0;
+    flex-wrap: wrap;
+  }
+  .breadcrumb span { cursor: pointer; }
+  .breadcrumb span:hover { color: var(--sage); }
+  .breadcrumb .sep { color: var(--light-grey); }
+  .breadcrumb .current { color: var(--deep-sage); font-weight: 500; }
+
+  /* ─── HOME ─── */
+  .hero {
+    padding: 100px 5% 80px;
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .hero-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 700;
+    line-height: 1.2; color: var(--deep-sage);
+    margin-bottom: 20px;
+  }
+  .hero-text h1 em { font-style: italic; color: var(--accent-gold); }
+  .hero-text p {
+    font-size: 1.05rem; line-height: 1.7; color: var(--mid-grey);
+    margin-bottom: 32px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--pale-green); color: var(--deep-sage);
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 0.78rem; font-weight: 500; margin-bottom: 20px;
+  }
+  .hero-badge::before { content: "●"; font-size: 0.5rem; color: var(--sage); }
+  .hero-visual {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .hero-card {
+    background: var(--warm-white); border: 1px solid var(--beige);
+    border-radius: 16px; padding: 24px;
+    cursor: pointer; transition: all 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .hero-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: var(--sage); transform: scaleX(0);
+    transition: transform 0.25s; transform-origin: left;
+  }
+  .hero-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(61,107,61,0.1); }
+  .hero-card:hover::after { transform: scaleX(1); }
+  .hero-card-icon { font-size: 1.8rem; margin-bottom: 12px; }
+  .hero-card h3 {
+    font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600;
+    color: var(--deep-sage); margin-bottom: 6px;
+  }
+  .hero-card p { font-size: 0.8rem; color: var(--mid-grey); line-height: 1.5; }
+  .hero-card.featured { grid-column: 1 / -1; display: flex; align-items: center; gap: 20px; }
+  .hero-card.featured .hero-card-icon { font-size: 2.4rem; }
+  .stats-row {
+    background: var(--deep-sage); color: white;
+    padding: 40px 5%;
+    display: flex; justify-content: center; gap: 80px; flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700;
+    color: var(--accent-gold);
+  }
+  .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-top: 4px; }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    padding: 100px 5% 48px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--pale-green); color: var(--sage);
+    padding: 5px 12px; border-radius: 20px;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700;
+    color: var(--deep-sage); line-height: 1.25; margin-bottom: 12px;
+  }
+  .section-header p { font-size: 1rem; color: var(--mid-grey); max-width: 600px; line-height: 1.65; }
+
+  /* ─── CATEGORY GRID ─── */
+  .cat-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px; padding: 0 5% 80px; max-width: 1200px; margin: 0 auto;
+  }
+  .cat-card {
+    background: var(--warm-white); border: 1px solid var(--beige);
+    border-radius: 16px; padding: 28px;
+    cursor: pointer; transition: all 0.25s;
+    position: relative;
+  }
+  .cat-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(61,107,61,0.12); border-color: var(--soft-sage); }
+  .cat-card-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: var(--pale-green); display: flex; align-items: center;
+    justify-content: center; font-size: 1.5rem; margin-bottom: 16px;
+  }
+  .cat-card h3 {
+    font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600;
+    color: var(--charcoal); margin-bottom: 8px;
+  }
+  .cat-card p { font-size: 0.825rem; color: var(--mid-grey); line-height: 1.6; margin-bottom: 16px; }
+  .cat-card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.75rem; color: var(--sage); font-weight: 500;
+  }
+  .cat-card-arrow { font-size: 1rem; }
+
+  /* ─── DETAIL PAGE ─── */
+  .detail-wrap { max-width: 900px; margin: 0 auto; padding: 0 5% 80px; }
+  .detail-intro {
+    background: var(--pale-green); border-radius: 16px;
+    padding: 32px; margin-bottom: 40px;
+    border-left: 4px solid var(--sage);
+  }
+  .detail-intro h3 {
+    font-family: 'Playfair Display', serif; font-size: 1.3rem;
+    color: var(--deep-sage); margin-bottom: 8px;
+  }
+  .detail-intro p { font-size: 0.925rem; color: var(--mid-grey); line-height: 1.7; }
+
+  .law-card {
+    background: var(--warm-white); border: 1px solid var(--beige);
+    border-radius: 16px; margin-bottom: 20px; overflow: hidden;
+  }
+  .law-card-header {
+    padding: 24px 28px 20px;
+    display: flex; align-items: flex-start; gap: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .law-card-header:hover { background: var(--pale-green); }
+  .law-number {
+    background: var(--deep-sage); color: white;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em;
+    padding: 4px 10px; border-radius: 20px; white-space: nowrap;
+    margin-top: 3px;
+  }
+  .law-title-block { flex: 1; }
+  .law-title {
+    font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 600;
+    color: var(--charcoal); margin-bottom: 4px;
+  }
+  .law-year { font-size: 0.78rem; color: var(--sage); font-weight: 500; }
+  .law-expand { color: var(--mid-grey); font-size: 1.2rem; transition: transform 0.2s; cursor: pointer; }
+  .law-card.open .law-expand { transform: rotate(180deg); }
+  .law-body { display: none; padding: 0 28px 28px; }
+  .law-card.open .law-body { display: block; }
+
+  .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .tag {
+    padding: 4px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: 600;
+  }
+  .tag-legal { background: #E8F0E8; color: var(--deep-sage); }
+  .tag-amended { background: #FFF3E8; color: #8B5A2B; }
+  .tag-constitutional { background: #E8EEF8; color: #2B4A8B; }
+
+  .jargon-box {
+    background: var(--beige); border-radius: 12px;
+    padding: 18px 22px; margin-bottom: 18px;
+  }
+  .jargon-box h4 {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--sage); margin-bottom: 6px;
+  }
+  .jargon-text { font-size: 0.875rem; color: var(--charcoal); line-height: 1.65; }
+  .jargon-text strong { color: var(--deep-sage); }
+
+  .simple-box {
+    background: #E8F5E8; border-radius: 12px;
+    padding: 18px 22px; margin-bottom: 18px;
+    border-left: 3px solid var(--sage);
+  }
+  .simple-box h4 {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--sage); margin-bottom: 6px;
+  }
+  .simple-text { font-size: 0.925rem; color: var(--charcoal); line-height: 1.7; }
+
+  .penalty-box {
+    background: #FEF6F0; border-radius: 12px;
+    padding: 16px 20px; margin-bottom: 18px;
+    border-left: 3px solid var(--rose);
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .penalty-box .pi { font-size: 1.1rem; }
+  .penalty-box p { font-size: 0.85rem; color: #5A2B1A; line-height: 1.6; }
+  .penalty-box strong { display: block; margin-bottom: 3px; color: var(--rose); }
+
+  .how-to-use {
+    background: var(--pale-green); border-radius: 12px;
+    padding: 18px 22px; margin-top: 4px;
+  }
+  .how-to-use h4 {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--deep-sage); margin-bottom: 10px;
+  }
+  .how-to-use ol { padding-left: 18px; }
+  .how-to-use li { font-size: 0.85rem; color: var(--charcoal); line-height: 1.7; margin-bottom: 4px; }
+
+  /* ─── SEARCH ─── */
+  .search-wrap {
+    padding: 100px 5% 24px; max-width: 1200px; margin: 0 auto;
+  }
+  .search-bar {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--warm-white); border: 2px solid var(--beige);
+    border-radius: 50px; padding: 12px 24px;
+    transition: border-color 0.2s;
+  }
+  .search-bar:focus-within { border-color: var(--sage); }
+  .search-bar input {
+    flex: 1; border: none; outline: none; background: none;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--charcoal);
+  }
+  .search-bar input::placeholder { color: var(--light-grey); }
+  .search-icon { color: var(--sage); font-size: 1.1rem; }
+  .search-results { padding: 0 5% 80px; max-width: 1200px; margin: 0 auto; }
+  .search-result-card {
+    background: var(--warm-white); border: 1px solid var(--beige);
+    border-radius: 14px; padding: 20px 24px; margin-bottom: 14px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .search-result-card:hover { border-color: var(--sage); transform: translateX(4px); }
+  .src-meta { display: flex; gap: 8px; margin-bottom: 8px; }
+  .src-category { font-size: 0.72rem; color: var(--sage); font-weight: 600; text-transform: uppercase; }
+  .src-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--charcoal); margin-bottom: 6px; }
+  .src-snippet { font-size: 0.83rem; color: var(--mid-grey); line-height: 1.6; }
+
+  /* ─── BACK BTN ─── */
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: none; border: 1.5px solid var(--beige);
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+    color: var(--mid-grey); cursor: pointer;
+    padding: 8px 18px; border-radius: 20px; margin: 0 5% 24px;
+    transition: all 0.2s;
+  }
+  .back-btn:hover { background: var(--pale-green); border-color: var(--sage); color: var(--deep-sage); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--deep-sage); color: rgba(255,255,255,0.75);
+    padding: 40px 5%; text-align: center;
+    font-size: 0.8rem; line-height: 1.8;
+  }
+  footer strong { color: white; }
+
+  /* ─── BIG SIS NAV ─── */
+  .bigsis-nav-btn { background: var(--pale-green) !important; color: var(--deep-sage) !important; font-weight: 600 !important; border: 1.5px solid var(--soft-sage) !important; }
+  .bigsis-nav-btn:hover { background: var(--sage) !important; color: white !important; }
+
+  /* ─── BIG SIS PAGE ─── */
+  #bigsis { background: var(--cream); }
+
+  .bigsis-hero {
+    padding: 90px 5% 0;
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; align-items: start;
+  }
+  .bigsis-profile {
+    position: sticky; top: 80px;
+    background: var(--warm-white); border: 1px solid var(--beige);
+    border-radius: 24px; padding: 32px; text-align: center;
+  }
+  .bigsis-avatar {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--deep-sage) 0%, var(--soft-sage) 100%);
+    margin: 0 auto 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    box-shadow: 0 8px 24px rgba(61,107,61,0.25);
+    position: relative;
+  }
+  .bigsis-status-dot {
+    position: absolute; bottom: 6px; right: 6px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #4CAF50; border: 3px solid var(--warm-white);
+    animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(76,175,80,0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(76,175,80,0); }
+  }
+  .bigsis-name {
+    font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700;
+    color: var(--deep-sage); margin-bottom: 4px;
+  }
+  .bigsis-title { font-size: 0.8rem; color: var(--sage); font-weight: 500; margin-bottom: 12px; }
+  .bigsis-desc { font-size: 0.83rem; color: var(--mid-grey); line-height: 1.6; margin-bottom: 20px; }
+  .bigsis-traits { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .bigsis-trait {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--pale-green); border-radius: 10px; padding: 8px 12px;
+    font-size: 0.8rem; color: var(--deep-sage);
+  }
+  .bigsis-trait-icon { font-size: 1rem; }
+  .bigsis-disclaimer {
+    background: #FFF8E8; border-radius: 10px; padding: 10px 14px;
+    font-size: 0.75rem; color: #8B6914; line-height: 1.5;
+    border: 1px solid #F0D88A;
+  }
+
+  /* ─── CHAT AREA ─── */
+  .chat-area {
+    display: flex; flex-direction: column;
+    background: var(--warm-white); border: 1px solid var(--beige);
+    border-radius: 24px; overflow: hidden;
+    margin-bottom: 40px;
+    min-height: 520px;
+  }
+  .chat-header {
+    background: var(--deep-sage); color: white;
+    padding: 16px 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .chat-header-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .chat-header-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; }
+  .chat-header-sub { font-size: 0.72rem; color: rgba(255,255,255,0.7); }
+  .chat-header-dot { width: 8px; height: 8px; border-radius: 50%; background: #4CAF50; margin-left: auto; }
+
+  .chat-messages {
+    flex: 1; padding: 24px;
+    display: flex; flex-direction: column; gap: 16px;
+    overflow-y: auto; max-height: 480px;
+    min-height: 300px;
+  }
+
+  .msg { display: flex; gap: 10px; animation: msgIn 0.35s ease; }
+  @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .msg.user { flex-direction: row-reverse; }
+
+  .msg-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--pale-green); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; align-self: flex-end;
+  }
+  .msg.user .msg-avatar { background: var(--beige); }
+
+  .msg-bubble {
+    max-width: 75%; padding: 14px 18px;
+    border-radius: 18px; font-size: 0.88rem; line-height: 1.65;
+    color: var(--charcoal);
+  }
+  .msg.bigsis .msg-bubble {
+    background: var(--pale-green);
+    border-bottom-left-radius: 4px;
+  }
+  .msg.user .msg-bubble {
+    background: var(--deep-sage); color: white;
+    border-bottom-right-radius: 4px;
+  }
+
+  /* law cards inside chat */
+  .chat-law-card {
+    background: var(--warm-white); border: 1.5px solid var(--soft-sage);
+    border-radius: 14px; padding: 14px 18px; margin-top: 10px;
+  }
+  .chat-law-title {
+    font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 600;
+    color: var(--deep-sage); margin-bottom: 4px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .chat-law-badge {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em;
+    background: var(--deep-sage); color: white;
+    padding: 2px 7px; border-radius: 20px;
+  }
+  .chat-law-body { font-size: 0.8rem; color: var(--mid-grey); line-height: 1.6; margin-top: 4px; }
+  .chat-law-action {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 0.75rem; color: var(--sage); font-weight: 600;
+    margin-top: 8px; cursor: pointer;
+  }
+  .chat-law-action:hover { color: var(--deep-sage); }
+
+  .chat-helpline {
+    background: #FEF6F0; border-radius: 10px; padding: 10px 14px;
+    margin-top: 10px; font-size: 0.8rem; color: #5A2B1A;
+    border-left: 3px solid var(--rose);
+  }
+  .chat-helpline strong { display: block; color: var(--rose); margin-bottom: 3px; }
+
+  /* typing indicator */
+  .typing-indicator { display: flex; gap: 4px; align-items: center; padding: 4px 0; }
+  .typing-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--sage); opacity: 0.4;
+    animation: typing 1.2s infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typing {
+    0%, 100% { opacity: 0.4; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(-3px); }
+  }
+
+  /* quick prompts */
+  .quick-prompts {
+    padding: 16px 24px 0;
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .quick-prompt {
+    background: none; border: 1.5px solid var(--beige);
+    font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+    color: var(--mid-grey); cursor: pointer;
+    padding: 6px 14px; border-radius: 20px;
+    transition: all 0.2s; text-align: left;
+  }
+  .quick-prompt:hover { background: var(--pale-green); border-color: var(--sage); color: var(--deep-sage); }
+
+  /* input area */
+  .chat-input-area {
+    padding: 16px 20px;
+    border-top: 1px solid var(--beige);
+    display: flex; gap: 10px; align-items: flex-end;
+    background: var(--warm-white);
+  }
+  .chat-textarea {
+    flex: 1; border: 1.5px solid var(--beige);
+    border-radius: 16px; padding: 12px 16px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+    color: var(--charcoal); resize: none; outline: none;
+    background: var(--cream); line-height: 1.5;
+    max-height: 100px; overflow-y: auto;
+    transition: border-color 0.2s;
+  }
+  .chat-textarea:focus { border-color: var(--sage); }
+  .chat-textarea::placeholder { color: var(--light-grey); }
+  .chat-send-btn {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--deep-sage); border: none;
+    color: white; font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: all 0.2s;
+    align-self: flex-end;
+  }
+  .chat-send-btn:hover { background: var(--sage); transform: scale(1.05); }
+  .chat-send-btn:disabled { background: var(--light-grey); cursor: not-allowed; transform: none; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { grid-template-columns: 1fr; }
+    .hero-card.featured { flex-direction: column; }
+    .stats-row { gap: 40px; }
+    .nav-links { gap: 0; }
+    .nav-btn { padding: 8px 10px; font-size: 0.8rem; }
+    .bigsis-hero { grid-template-columns: 1fr; }
+    .bigsis-profile { position: static; }
+    .msg-bubble { max-width: 88%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─────────── NAV ─────────── -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">Her<span>Law</span> ⚖️</div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="showPage('home'); setActive(this)">Home</button>
+    <button class="nav-btn" onclick="showPage('rights'); setActive(this)">Rights</button>
+    <button class="nav-btn" onclick="showPage('laws'); setActive(this)">Laws</button>
+    <button class="nav-btn" onclick="showPage('articles'); setActive(this)">Articles</button>
+    <button class="nav-btn" onclick="showPage('search-page'); setActive(this)">🔍 Search</button>
+    <button class="nav-btn bigsis-nav-btn" onclick="showPage('bigsis'); setActive(this)">💚 Big Sis</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--                HOME PAGE                    -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="home" class="page active">
+  <div class="hero">
+    <div class="hero-text">
+      <div class="hero-badge">India's Most Complete Women's Legal Resource</div>
+      <h1>Know Your Rights.<br>Understand the <em>Law.</em></h1>
+      <p>HerLaw is a structured, plain-language portal covering every law, constitutional right, and legal protection available to women in India — organized so you can find exactly what you need, fast.</p>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card featured" onclick="showPage('rights'); setActiveByName('Rights')">
+        <div class="hero-card-icon">⚖️</div>
+        <div>
+          <h3>Women's Rights</h3>
+          <p>Constitutional rights, fundamental freedoms, and legal entitlements organized by life area — education, workplace, health, and more.</p>
+        </div>
+      </div>
+      <div class="hero-card" onclick="showPage('laws'); setActiveByName('Laws')">
+        <div class="hero-card-icon">📜</div>
+        <h3>Acts & Laws</h3>
+        <p>Every major Indian legislation protecting women, with plain-language explanations.</p>
+      </div>
+      <div class="hero-card" onclick="showPage('articles'); setActiveByName('Articles')">
+        <div class="hero-card-icon">🏛️</div>
+        <h3>Constitutional Articles</h3>
+        <p>Articles 14–43 and beyond — what they mean for you.</p>
+      </div>
+      <div class="hero-card" onclick="showPage('bigsis'); setActiveByName('Big Sis')" style="background:linear-gradient(135deg,#E8F5E8,#F0FAF0);border-color:var(--soft-sage);grid-column:1/-1;display:flex;align-items:center;gap:20px;">
+        <div class="hero-card-icon" style="font-size:2.4rem">💚</div>
+        <div>
+          <h3 style="color:var(--deep-sage)">Meet Big Sis — Your AI Legal Companion</h3>
+          <p>Tell her your situation in your own words. She listens with care and responds with the exact laws, rights, and next steps that apply to <em>you</em>.</p>
+        </div>
+        <span style="margin-left:auto;font-size:1.5rem;color:var(--sage)">→</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Major Laws Covered</div></div>
+    <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Constitutional Articles</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">Life Categories</div></div>
+    <div class="stat"><div class="stat-num">2024</div><div class="stat-label">Last Updated</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--             RIGHTS — CATEGORY PAGE          -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="rights" class="page">
+  <div class="section-header">
+    <div class="section-tag">Women's Rights</div>
+    <h2>Choose a Category</h2>
+    <p>Select the area of your life you want to explore. Each category contains all relevant rights, laws, and protections.</p>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card" onclick="showDetail('rights-education')">
+      <div class="cat-card-icon">📚</div>
+      <h3>Education Rights</h3>
+      <p>Rights to equal access, scholarships, anti-discrimination in schools and colleges, and more.</p>
+      <div class="cat-card-footer"><span>5 rights covered</span><span class="cat-card-arrow">→</span></div>
+    </div>
+    <div class="cat-card" onclick="showDetail('rights-workplace')">
+      <div class="cat-card-icon">💼</div>
+      <h3>Workplace Rights</h3>
+      <p>Equal pay, maternity leave, anti-harassment, safe working conditions, and board representation.</p>
+      <div class="cat-card-footer"><span>7 rights covered</span><span class="cat-card-arrow">→</span></div>
+    </div>
+    <div class="cat-card" onclick="showDetail('rights-health')">
+      <div class="cat-card-icon">🏥</div>
+      <h3>Health & Reproductive Rights</h3>
+      <p>Right to safe abortion, maternal healthcare, medical privacy, and reproductive autonomy.</p>
+      <div class="cat-card-footer"><span>4 rights covered</span><span class="cat-card-arrow">→</span></div>
+    </div>
+    <div class="cat-card" onclick="showDetail('rights-property')">
+      <div class="cat-card-icon">🏠</div>
+      <h3>Property & Inheritance Rights</h3>
+      <p>Equal inheritance, matrimonial property, streedhan, and maintenance rights.</p>
+      <div class="cat-card-footer"><span>5 rights covered</span><span class="cat-card-arrow">→</span></div>
+    </div>
+    <div class="cat-card" onclick="showDetail('rights-safety')">
+      <div class="cat-card-icon">🛡️</div>
+      <h3>Safety & Protection Rights</h3>
+      <p>Domestic violence, dowry, trafficking, acid attacks — and how the law protects you.</p>
+      <div class="cat-card-footer"><span>6 rights covered</span><span class="cat-card-arrow">→</span></div>
+    </div>
+    <div class="cat-card" onclick="showDetail('rights-political')">
+      <div class="cat-card-icon">🗳️</div>
+      <h3>Political & Civil Rights</h3>
+      <p>Right to vote, contest elections, reservation in panchayats, and freedom of expression.</p>
+      <div class="cat-card-footer"><span>4 rights covered</span><span class="cat-card-arrow">→</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--        RIGHTS — DETAIL PAGES                -->
+<!-- ═══════════════════════════════════════════ -->
+
+<!-- EDUCATION RIGHTS -->
+<div id="rights-education" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">Home</span><span class="sep">›</span>
+    <span onclick="showPage('rights')">Rights</span><span class="sep">›</span>
+    <span class="current">Education Rights</span>
+  </div>
+  <button class="back-btn" onclick="showPage('rights')">← Back to Rights</button>
+  <div class="section-header" style="padding-top:0">
+    <div class="section-tag">Education Rights</div>
+    <h2>Women's Right to Education</h2>
+    <p>Every girl in India has the right to equal education. These laws and articles protect that right.</p>
+  </div>
+  <div class="detail-wrap">
+    <div class="detail-intro">
+      <h3>Why Education Rights Matter</h3>
+      <p>Education is the foundation of all other rights. Indian law guarantees girls equal access to schools, universities, and professional institutions — and prohibits gender-based exclusion. These laws also protect against fee discrimination, sexual harassment on campus, and child marriage that interrupts schooling.</p>
+    </div>
+
+    <!-- Card 1 -->
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">Art. 21-A</div>
+        <div class="law-title-block">
+          <div class="law-title">Right to Free & Compulsory Education</div>
+          <div class="law-year">Constitution of India · Inserted by 86th Amendment, 2002</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-constitutional">Constitutional</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>"The State shall provide free and compulsory education to all children of the age of six to fourteen years in such manner as the State may, by law, determine."</strong> This is enforced through the Right of Children to Free and Compulsory Education Act, 2009 (RTE Act).</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">The government must provide completely free schooling to every child — including every girl — between ages 6 and 14. No school can charge fees, turn away a child, or make a girl sit for exams before completing this basic education. Private schools must also reserve 25% of seats for economically weaker students.</p>
+        </div>
+        <div class="how-to-use">
+          <h4>🔍 How to Use This Right</h4>
+          <ol>
+            <li>If a school refuses to admit a girl, file a complaint with the State Education Department.</li>
+            <li>If any school charges fees for RTE-quota admissions, report to the District Education Officer.</li>
+            <li>Contact the National Commission for Protection of Child Rights (NCPCR) helpline: 1800-11-1800 (toll-free).</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">Art. 15(3)</div>
+        <div class="law-title-block">
+          <div class="law-title">Special Provisions for Women in Education</div>
+          <div class="law-year">Constitution of India · 1950</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-constitutional">Constitutional</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>"Nothing in this Article shall prevent the State from making any special provision for women and children."</strong> This enables the State to create women-only colleges, girls' scholarships, and reserved seats without violating equality principles.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">Even though the Constitution says everyone is equal, it specifically allows the government to create special benefits only for women — like ladies-only colleges, higher scholarships for girls, or reserved seats in professional courses. This is called "protective discrimination" and is perfectly legal.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">POSH Campus</div>
+        <div class="law-title-block">
+          <div class="law-title">Protection from Sexual Harassment in Educational Institutions</div>
+          <div class="law-year">UGC Regulations, 2015 + POSH Act, 2013</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span><span class="tag tag-amended">2015 Regulation</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text (Key Terms)</h4>
+          <p class="jargon-text"><strong>UGC (Prevention, Prohibition and Redressal of Sexual Harassment of Women Employees and Students in Higher Educational Institutions) Regulations, 2015</strong> — mandates an Internal Complaints Committee (ICC) in every university and college. "Sexual harassment" includes unwelcome physical, verbal, or non-verbal conduct of a sexual nature.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">Every university and college in India must have a committee to handle complaints of sexual harassment — whether made by students or staff. Harassment can be comments, staring, touching, or pressure for sexual favors. If your institution does not have this committee, they are violating UGC law.</p>
+        </div>
+        <div class="penalty-box">
+          <div class="pi">⚠️</div>
+          <p><strong>Penalty for Non-Compliance</strong>The UGC can withdraw recognition or funding from institutions that fail to establish an ICC. Perpetrators face departmental action, suspension, and criminal prosecution under IPC Section 354A.</p>
+        </div>
+        <div class="how-to-use">
+          <h4>🔍 How to Use This Right</h4>
+          <ol>
+            <li>File a written complaint with your college's ICC within 3 months of the incident.</li>
+            <li>If no ICC exists, complain directly to the UGC at <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b5c5d2d6f5c0d2d69bd4d69bdcdb">[email&#160;protected]</a> or call 011-23604446.</li>
+            <li>Use the SHe-Box online portal: shebox.nic.in for complaints.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">PCM Act</div>
+        <div class="law-title-block">
+          <div class="law-title">Prohibition of Child Marriage — Protects Girls' Education</div>
+          <div class="law-year">Prohibition of Child Marriage Act, 2006 · Amended 2021</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span><span class="tag tag-amended">2021 Amendment</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>Section 3:</strong> Any marriage where the bride is under 18 or groom is under 21 is voidable at the option of the contracting party. Under the <strong>Prohibition of Child Marriage (Amendment) Bill, 2021</strong> — pending enactment — the minimum age of marriage for women is proposed to be raised to 21.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">Girls cannot be married before age 18. If someone forces a girl into marriage before 18, the marriage can be cancelled by a court. Child marriage interrupts education — this law directly protects a girl's right to complete schooling. A "Child Marriage Prohibition Officer" is appointed in every district to stop these marriages.</p>
+        </div>
+        <div class="penalty-box">
+          <div class="pi">⚠️</div>
+          <p><strong>Penalty</strong>Anyone who arranges, solemnizes, or abets a child marriage faces up to 2 years imprisonment or a fine up to ₹1 lakh, or both.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">Art. 46</div>
+        <div class="law-title-block">
+          <div class="law-title">State Duty to Promote Educational Interests of Weaker Sections</div>
+          <div class="law-year">Constitution of India · Directive Principle · 1950</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-constitutional">Directive Principle</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>"The State shall promote with special care the educational and economic interests of the weaker sections of the people, and, in particular, of the Scheduled Castes and the Scheduled Tribes, and shall protect them from social injustice and all forms of exploitation."</strong></p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">The government has a duty (though not immediately enforceable in court like fundamental rights) to specifically support the education of disadvantaged women — including SC/ST women, women from poor families, and rural women. This is the basis for government schemes like Beti Bachao Beti Padhao, Kasturba Gandhi Balika Vidyalaya, and girl-child scholarships.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WORKPLACE RIGHTS -->
+<div id="rights-workplace" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">Home</span><span class="sep">›</span>
+    <span onclick="showPage('rights')">Rights</span><span class="sep">›</span>
+    <span class="current">Workplace Rights</span>
+  </div>
+  <button class="back-btn" onclick="showPage('rights')">← Back to Rights</button>
+  <div class="section-header" style="padding-top:0">
+    <div class="section-tag">Workplace Rights</div>
+    <h2>Women's Rights at Work</h2>
+    <p>From equal pay to safe conditions, these are the laws that protect every working woman in India.</p>
+  </div>
+  <div class="detail-wrap">
+    <div class="detail-intro">
+      <h3>Your Workplace is Protected by Law</h3>
+      <p>Multiple laws — from the Constitution to specific Acts — create a framework of rights at work. You have the right to equal pay, a safe environment, maternity leave, and protection from harassment. Employers who violate these laws face serious penalties.</p>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">ERA 1976</div>
+        <div class="law-title-block">
+          <div class="law-title">Right to Equal Pay for Equal Work</div>
+          <div class="law-year">Equal Remuneration Act, 1976</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>Section 4:</strong> "No employer shall pay to any worker, employed by him in an establishment or employment, remuneration, whether payable in cash or in kind, at rates less favourable than those at which remuneration is paid by him to the workers of the opposite sex in such establishment or employment for performing the same work or work of a similar nature."</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">A woman doing the same job as a man must be paid the same salary. An employer cannot pay a female employee less just because she is a woman. This applies to wages, allowances, and other monetary benefits. Discrimination in promotions, training, or transfers on basis of gender is also prohibited.</p>
+        </div>
+        <div class="penalty-box">
+          <div class="pi">⚠️</div>
+          <p><strong>Penalty for Employer</strong>Fine of ₹10,000–₹20,000 or imprisonment up to 1 year, or both. Repeat offences: up to 2 years imprisonment.</p>
+        </div>
+        <div class="how-to-use">
+          <h4>🔍 How to Use This Right</h4>
+          <ol>
+            <li>File a complaint with the Labour Commissioner of your state.</li>
+            <li>You can also approach a Labour Court directly.</li>
+            <li>Maintain pay slips and records as evidence of wage discrepancy.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">POSH 2013</div>
+        <div class="law-title-block">
+          <div class="law-title">Protection from Sexual Harassment at Work</div>
+          <div class="law-year">Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>Section 3:</strong> No woman shall be subjected to sexual harassment at any workplace. <strong>Sexual harassment</strong> includes: (i) physical contact and advances; (ii) demand or request for sexual favours; (iii) making sexually coloured remarks; (iv) showing pornography; (v) any other unwelcome physical, verbal or non-verbal conduct of a sexual nature. <strong>Section 4</strong> mandates an Internal Complaints Committee (ICC) in every organization with 10 or more employees.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">No one at your workplace — boss, colleague, client, or vendor — can sexually harass you. Harassment includes touching, comments, asking for sexual favors, or showing explicit material. Every company with 10+ employees must have a committee to handle your complaint. Even domestic workers and women in the unorganized sector are covered — they can approach the Local Complaints Committee set up in every district.</p>
+        </div>
+        <div class="penalty-box">
+          <div class="pi">⚠️</div>
+          <p><strong>Penalty</strong>Employers who fail to set up ICC: Fine up to ₹50,000. Repeat non-compliance: doubled fine + loss of business licence. Perpetrators face criminal action under BNS (Bharatiya Nyaya Sanhita) Section 75 (Sexual Harassment).</p>
+        </div>
+        <div class="how-to-use">
+          <h4>🔍 How to Use This Right</h4>
+          <ol>
+            <li>File written complaint with ICC within 3 months of incident (extendable by 3 more months).</li>
+            <li>If no ICC: Contact your district's Local Complaints Committee (set up by DM/Collector).</li>
+            <li>File online at SHe-Box portal: shebox.nic.in</li>
+            <li>Call NCW helpline: 7827170170</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">MBA 1961</div>
+        <div class="law-title-block">
+          <div class="law-title">Maternity Leave & Benefits</div>
+          <div class="law-year">Maternity Benefit Act, 1961 · Amended 2017</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span><span class="tag tag-amended">2017 Amendment</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>Section 5(3):</strong> Every woman employed in any establishment for a period of 80 days in the 12 months immediately preceding the date of her expected delivery shall be entitled to 26 weeks of paid maternity leave (for first two children). <strong>Section 11A</strong> (inserted in 2017): Mandatory crèche facility for establishments with 50+ employees.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">If you have worked for the same employer for at least 80 days in the past year, you are entitled to 26 weeks (about 6 months) of fully paid leave when you have a baby — for your first two children. For the third child onwards, it's 12 weeks. Adoptive mothers and commissioning mothers (surrogacy) get 12 weeks. Your employer cannot fire you while on maternity leave, and companies with 50+ employees must have a crèche within 500m of work.</p>
+        </div>
+        <div class="penalty-box">
+          <div class="pi">⚠️</div>
+          <p><strong>Penalty for Employer</strong>Imprisonment up to 1 year + fine up to ₹5,000 for denying maternity benefits.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">CA 2013</div>
+        <div class="law-title-block">
+          <div class="law-title">Right to Representation — Woman Director on Board</div>
+          <div class="law-year">Companies Act, 2013 · Section 149(1)</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>Section 149(1):</strong> Every listed company and every public company with paid-up share capital of ₹100 crore or more, or turnover of ₹300 crore or more, shall have at least one woman director on its board of directors.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">Large companies — listed on stock exchanges, or with ₹100 crore+ capital — must have at least one woman on their board of directors. This is a legal requirement, not just best practice. This law ensures women have a seat at the highest decision-making tables in Indian business.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">FA 1948</div>
+        <div class="law-title-block">
+          <div class="law-title">Safe & Healthy Working Conditions</div>
+          <div class="law-year">Factories Act, 1948 · Sections 22, 27, 66</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>Section 66:</strong> No woman shall be required or allowed to work in any factory except between 6 am and 7 pm (unless state government permits night shifts with adequate safety). <strong>Section 48:</strong> In every factory with 30+ women workers, a crèche must be provided. Separate washrooms and lockers are mandatory.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">Factories must provide: separate, clean toilets for women; a crèche if there are 30+ women workers; lockers and changing rooms; and regulated working hours. If a woman is asked to work night shifts, the employer must provide safe transport and a security escort. These conditions apply to all factories across India.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HEALTH RIGHTS -->
+<div id="rights-health" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">Home</span><span class="sep">›</span>
+    <span onclick="showPage('rights')">Rights</span><span class="sep">›</span>
+    <span class="current">Health & Reproductive Rights</span>
+  </div>
+  <button class="back-btn" onclick="showPage('rights')">← Back to Rights</button>
+  <div class="section-header" style="padding-top:0">
+    <div class="section-tag">Health Rights</div>
+    <h2>Health & Reproductive Rights</h2>
+    <p>Laws protecting a woman's bodily autonomy, medical privacy, and reproductive choices.</p>
+  </div>
+  <div class="detail-wrap">
+    <div class="detail-intro">
+      <h3>Your Body, Your Rights</h3>
+      <p>Indian law recognizes a woman's right to make decisions about her own body and health. From abortion access to maternal healthcare, these laws protect reproductive autonomy.</p>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">MTP 1971</div>
+        <div class="law-title-block">
+          <div class="law-title">Right to Safe & Legal Abortion</div>
+          <div class="law-year">Medical Termination of Pregnancy Act, 1971 · Amended 2021</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span><span class="tag tag-amended">2021 Amendment</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>Section 3 (as amended in 2021):</strong> A pregnancy may be terminated up to 20 weeks with the opinion of one registered medical practitioner. Up to 24 weeks is allowed for vulnerable women including rape survivors, victims of incest, differently abled women, and minors. Up to 24 weeks also for fetal abnormalities (with Medical Board opinion). <strong>The 2021 amendment</strong> expanded the upper limit from 20 to 24 weeks and introduced the concept of a Medical Board for late-term cases.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">A woman has the legal right to end a pregnancy up to 20 weeks with just one doctor's approval. For rape survivors, victims of incest, minors, or women with disabilities, this extends to 24 weeks. The identity of the woman seeking abortion must be kept strictly confidential — revealing it is a criminal offence. This applies to all women regardless of marital status (the 2021 amendment removed the word "married woman" from the law).</p>
+        </div>
+        <div class="penalty-box">
+          <div class="pi">⚠️</div>
+          <p><strong>Privacy Protection</strong>Disclosing the identity of a woman who had an abortion is punishable with up to 1 year imprisonment, or fine, or both (Section 5A, MTP Act).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">PCPNDT</div>
+        <div class="law-title-block">
+          <div class="law-title">Protection from Sex-Selective Abortion & Foeticide</div>
+          <div class="law-year">Pre-Conception and Pre-Natal Diagnostic Techniques Act, 1994</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>Section 6:</strong> No person shall conduct or cause to be conducted any pre-natal diagnostic technique including ultrasonography for the purpose of determining the sex of a foetus. <strong>Sex determination</strong> (finding out the gender of the baby before birth to then abort it if female) is strictly illegal.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">It is completely illegal for any doctor, hospital, or lab to tell parents the gender of their unborn baby. It is also illegal to abort a pregnancy only because the baby is female. This law was enacted to stop female foeticide — the selective abortion of girl children. You will see "Sex determination not done here" signs in ultrasound centres — this is required by law.</p>
+        </div>
+        <div class="penalty-box">
+          <div class="pi">⚠️</div>
+          <p><strong>Penalty</strong>First offence: 3 years imprisonment + ₹10,000 fine. Second offence: 5 years imprisonment + ₹50,000 fine. Doctor loses licence permanently.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">Art. 21</div>
+        <div class="law-title-block">
+          <div class="law-title">Right to Life with Dignity — Includes Reproductive Rights</div>
+          <div class="law-year">Constitution of India · Interpreted by Supreme Court</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-constitutional">Constitutional</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>Article 21:</strong> "No person shall be deprived of his life or personal liberty except according to procedure established by law." The Supreme Court in <em>K.S. Puttaswamy v. Union of India (2017)</em> (Privacy Judgement) held that reproductive choices form part of the right to privacy under Article 21. In <em>X v. Principal Secretary Health, Delhi (2022)</em> the Court held that all women — married or unmarried — have equal right to safe abortion under Articles 14 and 21.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">The Supreme Court has interpreted the right to life broadly to include the right to bodily privacy and reproductive freedom. This means the state cannot force a woman to carry a pregnancy she does not want, and cannot interfere with her personal health decisions. Marital status does not affect abortion rights — a single, unmarried, or divorced woman has the same reproductive rights as a married woman.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">Art. 47</div>
+        <div class="law-title-block">
+          <div class="law-title">State Duty to Raise Level of Nutrition & Public Health</div>
+          <div class="law-year">Constitution of India · Directive Principle</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-constitutional">Directive Principle</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>"The State shall regard the raising of the level of nutrition and the standard of living of its people and the improvement of public health as among its primary duties."</strong> This is the constitutional foundation for schemes like Janani Suraksha Yojana (safe motherhood) and Pradhan Mantri Matru Vandana Yojana (maternity benefits).</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">The government has a duty to ensure good health for all citizens, especially mothers. This is why government hospitals must provide free maternity care, and why Anganwadi centres offer nutrition support to pregnant women. Under Janani Suraksha Yojana (JSY), women delivering in government hospitals receive cash assistance of ₹600–₹1,400 depending on the state.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROPERTY RIGHTS -->
+<div id="rights-property" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">Home</span><span class="sep">›</span>
+    <span onclick="showPage('rights')">Rights</span><span class="sep">›</span>
+    <span class="current">Property & Inheritance Rights</span>
+  </div>
+  <button class="back-btn" onclick="showPage('rights')">← Back to Rights</button>
+  <div class="section-header" style="padding-top:0">
+    <div class="section-tag">Property Rights</div>
+    <h2>Property & Inheritance Rights</h2>
+    <p>Women have equal rights to own, inherit, and control property under Indian law.</p>
+  </div>
+  <div class="detail-wrap">
+    <div class="detail-intro">
+      <h3>Financial Independence Starts with Property Rights</h3>
+      <p>Indian law — through several amendments — now gives daughters, wives, and widows equal rights to property. These rights exist regardless of whether a woman is married, divorced, or widowed.</p>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">HSA 2005</div>
+        <div class="law-title-block">
+          <div class="law-title">Equal Inheritance Rights for Daughters</div>
+          <div class="law-year">Hindu Succession (Amendment) Act, 2005</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span><span class="tag tag-amended">2005 Amendment</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>Section 6 (amended):</strong> "On and from the commencement of the Hindu Succession (Amendment) Act, 2005, in a Joint Hindu Family governed by the Mitakshara law, the daughter of a coparcener shall — (a) by birth become a coparcener in her own right in the same manner as the son." A <strong>coparcener</strong> is a person who has a legal right by birth to their ancestral property.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">Before 2005, only sons had an automatic birth-right to ancestral (joint family) property. The 2005 amendment changed this completely — daughters now have the exact same rights as sons to inherit ancestral property. This applies even if the father died before 2005, as long as the property was not already partitioned before December 20, 2004. The Supreme Court confirmed this in <em>Vineeta Sharma v. Rakesh Sharma (2020)</em>.</p>
+        </div>
+        <div class="how-to-use">
+          <h4>🔍 How to Use This Right</h4>
+          <ol>
+            <li>Approach a civil court if family members exclude you from ancestral property partition.</li>
+            <li>Contact the District Legal Services Authority (DLSA) for free legal advice.</li>
+            <li>File for partition suit through a lawyer — daughters cannot be denied this right.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">Streedhan</div>
+        <div class="law-title-block">
+          <div class="law-title">Right to Streedhan — A Woman's Personal Property</div>
+          <div class="law-year">Hindu Law · Confirmed by Supreme Court repeatedly</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Legal Principle</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>Streedhan</strong> (literally "woman's wealth") refers to all movable and immovable property given to a woman — before, during, or after marriage — by her parents, in-laws, husband, or any relative. The Supreme Court in <em>Pratibha Rani v. Suraj Kumar (1985)</em> held that Streedhan is the exclusive property of the wife and the husband has no right over it. Under Section 27, Hindu Marriage Act, court can award streedhan during divorce proceedings.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">All jewellery, gifts, money, and property a woman receives — from her parents at marriage (dowry she receives), from her in-laws, or as gifts from relatives — belongs entirely to her. Her husband and in-laws have no legal claim over it. If her husband or in-laws keep her Streedhan against her will, she can file a criminal complaint for theft (IPC Section 378) or criminal breach of trust (IPC Section 405).</p>
+        </div>
+        <div class="penalty-box">
+          <div class="pi">⚠️</div>
+          <p><strong>If Streedhan is Withheld</strong>File an FIR for criminal breach of trust under Section 405/406 IPC. The husband/in-laws can be arrested and imprisoned up to 3 years.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">CrPC 125</div>
+        <div class="law-title-block">
+          <div class="law-title">Right to Maintenance from Husband</div>
+          <div class="law-year">Section 144, Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023 · Earlier Section 125 CrPC</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span><span class="tag tag-amended">BNSS 2023</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>Section 144, BNSS, 2023</strong> (replaced Section 125 CrPC): If a husband neglects or refuses to maintain his wife who is unable to maintain herself, a Magistrate may order the husband to pay a monthly allowance (maintenance) to her. <strong>Maintenance</strong> = financial support for living expenses including food, shelter, clothing, medical needs.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">If your husband leaves you or refuses to support you financially, you can go to a Magistrate's Court and ask for monthly maintenance money. The court will fix an amount based on the husband's income. This right applies to wives, divorced women (until remarriage), and even women in live-in relationships (as confirmed by the Supreme Court). Under the Domestic Violence Act, 2005, maintenance can also be claimed through the DV complaint process.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SAFETY RIGHTS -->
+<div id="rights-safety" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">Home</span><span class="sep">›</span>
+    <span onclick="showPage('rights')">Rights</span><span class="sep">›</span>
+    <span class="current">Safety & Protection Rights</span>
+  </div>
+  <button class="back-btn" onclick="showPage('rights')">← Back to Rights</button>
+  <div class="section-header" style="padding-top:0">
+    <div class="section-tag">Safety Rights</div>
+    <h2>Safety & Protection Rights</h2>
+    <p>Strong laws to protect women from domestic violence, dowry, trafficking, and gender-based violence.</p>
+  </div>
+  <div class="detail-wrap">
+    <div class="detail-intro">
+      <h3>You Have the Right to Live Free from Fear</h3>
+      <p>Multiple laws in India specifically criminalize violence against women. You always have the right to report abuse, access emergency protection, and seek legal remedies — regardless of relationship with the perpetrator.</p>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">PWDVA 2005</div>
+        <div class="law-title-block">
+          <div class="law-title">Protection from Domestic Violence</div>
+          <div class="law-year">Protection of Women from Domestic Violence Act, 2005</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>Section 3</strong> defines "domestic violence" to include: (a) physical abuse; (b) sexual abuse; (c) verbal and emotional abuse (insults, ridicule, humiliation, name-calling); (d) economic abuse (withholding money, stopping from working). <strong>Section 12:</strong> An aggrieved woman can file an application for relief with a Magistrate. <strong>Residence Order (Section 19):</strong> A woman cannot be evicted from the shared household, even if she doesn't own it.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">Domestic violence is not just physical beating — it includes any emotional abuse, being called names, being controlled financially, or being threatened. This Act protects women in any domestic relationship — wives, live-in partners, daughters, mothers, sisters. You cannot be thrown out of your home. The court can issue a "Protection Order" that legally bars the abuser from coming near you. You are entitled to free legal aid and can approach a "Protection Officer" in your district.</p>
+        </div>
+        <div class="how-to-use">
+          <h4>🔍 How to Use This Right</h4>
+          <ol>
+            <li>Call the women's helpline: <strong>181</strong> (24/7)</li>
+            <li>Contact the Protection Officer in your district (appointed by state government)</li>
+            <li>File an application directly at a Magistrate's court — no lawyer needed</li>
+            <li>NGOs registered under the Act can also help you file a complaint</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">DPA 1961</div>
+        <div class="law-title-block">
+          <div class="law-title">Protection from Dowry Demands & Harassment</div>
+          <div class="law-year">Dowry Prohibition Act, 1961 · BNS Section 84/85</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span><span class="tag tag-amended">BNS 2023</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>Section 3, Dowry Prohibition Act:</strong> Giving or taking dowry is punishable. <strong>Section 498-A IPC</strong> (now <strong>Section 85/86, Bharatiya Nyaya Sanhita 2023</strong>): Husband or relatives of husband who subject a woman to cruelty — including harassment for dowry — commit a cognizable, non-bailable offence. <strong>Section 304-B IPC</strong> (now <strong>Section 80, BNS</strong>): Dowry death — if a woman dies within 7 years of marriage under suspicious circumstances — carries minimum 7 years to life imprisonment.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">Demanding, giving, or taking dowry is illegal. If your husband or in-laws harass you for money or property after marriage, they can be arrested without a warrant. If a woman dies suspiciously within 7 years of marriage, it is presumed to be a dowry death unless proven otherwise — and the in-laws can face life imprisonment. You do not need to wait to be beaten to file a complaint — harassment alone is enough.</p>
+        </div>
+        <div class="penalty-box">
+          <div class="pi">⚠️</div>
+          <p><strong>Penalties</strong>Dowry demand/harassment (BNS 85): Up to 3 years imprisonment. Dowry death (BNS 80): Minimum 7 years, up to life imprisonment. Taking/giving dowry: 5 years + ₹15,000 fine (Dowry Prohibition Act).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">BNS 2023</div>
+        <div class="law-title-block">
+          <div class="law-title">Protection from Rape & Sexual Assault</div>
+          <div class="law-year">Bharatiya Nyaya Sanhita (BNS), 2023 · Sections 63–70</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span><span class="tag tag-amended">New 2023 Law</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text">The BNS 2023 replaced the Indian Penal Code (IPC) on July 1, 2024. <strong>Section 63 (Rape):</strong> Sexual intercourse without consent is rape. Minimum 10 years rigorous imprisonment to life. <strong>Section 70 (Gang Rape):</strong> Minimum 20 years to life imprisonment or death. <strong>Section 66 (Rape by a person in authority):</strong> Harsher punishment for rape by police, army, jail officers, public servants. <strong>Zero FIR:</strong> Rape can be reported at any police station regardless of jurisdiction — the FIR cannot be refused.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">Rape is punishable by a minimum of 10 years imprisonment. Gang rape: minimum 20 years. A woman can file a rape complaint at ANY police station — the police cannot say "go to that station." The survivor's identity is protected by law — revealing it is itself a crime. Medical examination of the survivor must be done within 24 hours. Rape by a husband is recognized as an offence under new provisions. A survivor can record her statement before a Magistrate under Section 183 BNSS to protect it from being challenged later.</p>
+        </div>
+        <div class="how-to-use">
+          <h4>🔍 How to Use This Right</h4>
+          <ol>
+            <li>Call 112 (emergency) or go to any police station — file Zero FIR</li>
+            <li>Seek immediate medical attention — preserve evidence if possible</li>
+            <li>Contact Rape Crisis Cell or One Stop Centre (Sakhi Centre) in your district</li>
+            <li>One Stop Centre Helpline: 181</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">ITP Act</div>
+        <div class="law-title-block">
+          <div class="law-title">Protection from Trafficking & Sexual Exploitation</div>
+          <div class="law-year">Immoral Traffic (Prevention) Act, 1956 · Amended</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span></div>
+        <div class="jargon-box">
+          <h4>⚖️ Legal Text</h4>
+          <p class="jargon-text"><strong>Trafficking</strong> is defined under <strong>Section 370, BNS 2023</strong> as recruiting, transporting, harbouring or receiving a person — especially women and children — through coercion, deception, or abuse of power for exploitation (sexual, labour, organ harvesting). Minimum 7 years to life imprisonment. <strong>Ujjawala Scheme:</strong> Provides rescue, rehabilitation, and reintegration for trafficking survivors.</p>
+        </div>
+        <div class="simple-box">
+          <h4>💬 In Simple Words</h4>
+          <p class="simple-text">Human trafficking — forcing, tricking, or selling women into prostitution, forced labor, or domestic servitude — is a serious crime with life imprisonment. Police have power to rescue victims and prosecute traffickers. The government runs shelters (Ujjawala homes) for survivors. If you know someone being trafficked, call the Anti-Human Trafficking helpline: 1800-419-8588 (toll-free).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POLITICAL RIGHTS -->
+<div id="rights-political" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">Home</span><span class="sep">›</span>
+    <span onclick="showPage('rights')">Rights</span><span class="sep">›</span>
+    <span class="current">Political & Civil Rights</span>
+  </div>
+  <button class="back-btn" onclick="showPage('rights')">← Back to Rights</button>
+  <div class="section-header" style="padding-top:0">
+    <div class="section-tag">Political Rights</div>
+    <h2>Political & Civil Rights</h2>
+    <p>Women's rights to vote, represent, and participate in governance — fully guaranteed by the Constitution.</p>
+  </div>
+  <div class="detail-wrap">
+    <div class="detail-intro">
+      <h3>Women's Voice in Democracy</h3>
+      <p>The Constitution of India has always given women equal political rights. Recent amendments have also reserved seats for women in local governance.</p>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">Art. 326</div>
+        <div class="law-title-block">
+          <div class="law-title">Equal Right to Vote</div>
+          <div class="law-year">Constitution of India · Article 326</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-constitutional">Constitutional</span></div>
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text"><strong>Article 326:</strong> The elections to the House of the People and to the Legislative Assembly of every State shall be on the basis of adult suffrage; that is to say, every person who is a citizen of India and who is not less than 18 years of age on such date as may be fixed in that behalf... shall be entitled to be registered as a voter. No discrimination based on gender.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Every Indian woman aged 18 or above has the fundamental right to vote. This has been so since 1950. No one — not family members, in-laws, or community leaders — can legally prevent a woman from voting. Voter ID cards can now be obtained independently; women do not need permission from husbands or fathers.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">Art. 243D</div>
+        <div class="law-title-block">
+          <div class="law-title">One-Third Reservation in Panchayats & Municipalities</div>
+          <div class="law-year">73rd & 74th Constitutional Amendment Acts, 1992</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-constitutional">Constitutional Amendment</span></div>
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text"><strong>Article 243D(3):</strong> Not less than one-third of the total number of seats to be filled by direct election in every Panchayat shall be reserved for women. <strong>Article 243D(4):</strong> Not less than one-third of the total number of offices of Chairpersons in the Panchayats at each level shall be reserved for women. Several states (Bihar, Jharkhand, Rajasthan, Uttarakhand) have increased this to 50% reservation.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">At least 1 in every 3 seats in village panchayats, panchayat samitis, and zila parishads must be filled by women. Similarly, at least 1 in 3 Sarpanch/Pradhan posts must be reserved for women. Many states have gone further, giving 50% of panchayat seats to women. The 106th Constitutional Amendment Act, 2023 (Nari Shakti Vandan Adhiniyam) also reserves 33% of Lok Sabha and state assembly seats for women — to be operationalised after delimitation.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">Art. 19</div>
+        <div class="law-title-block">
+          <div class="law-title">Freedom of Expression & Occupation for Women</div>
+          <div class="law-year">Constitution of India · Article 19</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-constitutional">Constitutional</span></div>
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text"><strong>Article 19(1):</strong> All citizens shall have the right — (a) to freedom of speech and expression; (b) to assemble peaceably; (c) to form associations; (d) to move freely throughout India; (e) to reside in any part of India; (g) to practise any profession, or to carry on any occupation, trade or business. These rights apply equally to women.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">A woman has the full right to speak her mind, write, protest, choose any career or business, live anywhere in India, and move freely — without needing permission from any man. No husband, father, or community can legally restrict these freedoms. The Supreme Court has repeatedly held that these rights cannot be curtailed on the basis of gender or family "honour."</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--            LAWS — CATEGORY PAGE             -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="laws" class="page">
+  <div class="section-header">
+    <div class="section-tag">Acts & Laws</div>
+    <h2>Women-Specific Legislation in India</h2>
+    <p>A complete index of major Acts enacted to protect and empower women — organized by subject.</p>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card" onclick="showDetail('laws-protection')">
+      <div class="cat-card-icon">🛡️</div>
+      <h3>Protection Laws</h3>
+      <p>Domestic violence, dowry, trafficking, sexual harassment — key protective legislation.</p>
+      <div class="cat-card-footer"><span>5 laws</span><span class="cat-card-arrow">→</span></div>
+    </div>
+    <div class="cat-card" onclick="showDetail('laws-equality')">
+      <div class="cat-card-icon">⚖️</div>
+      <h3>Equality & Employment Laws</h3>
+      <p>Equal pay, maternity, workplace safety, and anti-discrimination laws.</p>
+      <div class="cat-card-footer"><span>4 laws</span><span class="cat-card-arrow">→</span></div>
+    </div>
+    <div class="cat-card" onclick="showDetail('laws-family')">
+      <div class="cat-card-icon">👨‍👩‍👧</div>
+      <h3>Family & Personal Laws</h3>
+      <p>Marriage, divorce, custody, maintenance, and succession laws.</p>
+      <div class="cat-card-footer"><span>5 laws</span><span class="cat-card-arrow">→</span></div>
+    </div>
+    <div class="cat-card" onclick="showDetail('laws-criminal')">
+      <div class="cat-card-icon">⚡</div>
+      <h3>Criminal Laws (BNS 2023)</h3>
+      <p>New criminal code provisions — rape, harassment, stalking, voyeurism under BNS 2023.</p>
+      <div class="cat-card-footer"><span>6 sections</span><span class="cat-card-arrow">→</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROTECTION LAWS -->
+<div id="laws-protection" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">Home</span><span class="sep">›</span>
+    <span onclick="showPage('laws')">Laws</span><span class="sep">›</span>
+    <span class="current">Protection Laws</span>
+  </div>
+  <button class="back-btn" onclick="showPage('laws')">← Back to Laws</button>
+  <div class="section-header" style="padding-top:0">
+    <div class="section-tag">Protection Laws</div>
+    <h2>Key Protection Laws for Women</h2>
+  </div>
+  <div class="detail-wrap">
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">PWDVA 2005</div>
+        <div class="law-title-block">
+          <div class="law-title">Protection of Women from Domestic Violence Act, 2005</div>
+          <div class="law-year">In force from October 26, 2006</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Comprehensive Act</span></div>
+        <div class="jargon-box"><h4>⚖️ Key Provisions</h4><p class="jargon-text">Covers 4 types of abuse: <strong>Physical</strong> (hitting, kicking), <strong>Sexual</strong> (forced intercourse), <strong>Emotional/Verbal</strong> (insults, threats), <strong>Economic</strong> (withholding money). Provides: Protection Orders, Residence Orders, Custody Orders, Monetary Relief, Compensation Orders. Applies to women in any shared household — wives, live-in partners, mothers, daughters, sisters.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">This is India's most comprehensive law on domestic abuse. It covers all forms of abuse — not just physical. A woman can apply to a Magistrate for immediate protection. The court can order the abuser out of the house, order payment of expenses, and award custody of children. A "Protection Officer" in every district helps women access this law for free.</p></div>
+        <div class="how-to-use"><h4>🔍 Helplines</h4><ol><li>Women's Helpline: 181 (24/7, free)</li><li>Police: 112</li><li>NCW: 7827170170</li><li>One Stop Centre (Sakhi): 181</li></ol></div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">POSH 2013</div>
+        <div class="law-title-block">
+          <div class="law-title">Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013</div>
+          <div class="law-year">In force from December 9, 2013</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span></div>
+        <div class="jargon-box"><h4>⚖️ Key Provisions</h4><p class="jargon-text"><strong>Section 2(n):</strong> "Sexual harassment" = unwelcome acts or behaviour (directly or by implication): physical contact, demand for sexual favours, sexually coloured remarks, showing pornography, any unwelcome physical/verbal/non-verbal conduct. <strong>Section 4:</strong> Every employer with 10+ employees MUST form an Internal Complaints Committee (ICC). <strong>Section 6:</strong> Unorganized sector workers use Local Complaints Committee (LCC) at district level.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Any sexual harassment at work is illegal and must be handled by the employer. All organisations with 10+ employees must have a complaints committee. Even home-based workers, agricultural labourers, and domestic workers are covered — they approach the district LCC. Complaints must be resolved within 60 days. Anonymous tips about non-compliance can be filed with the District Magistrate.</p></div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">DPA 1961</div>
+        <div class="law-title-block">
+          <div class="law-title">Dowry Prohibition Act, 1961</div>
+          <div class="law-year">Amended 1983, 1986</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span></div>
+        <div class="jargon-box"><h4>⚖️ Key Provisions</h4><p class="jargon-text"><strong>Section 2:</strong> "Dowry" = any property or valuable security given or agreed to be given directly or indirectly at or before or after the marriage. <strong>Section 3:</strong> Giving or taking of dowry = imprisonment up to 5 years + fine not less than ₹15,000 or value of dowry (whichever is higher). <strong>Section 7:</strong> All offences under this Act are <strong>cognizable</strong> (police can arrest without warrant).</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Both giving and taking dowry is illegal. Cash, jewellery, vehicles, or property demanded as a condition of marriage — all fall under dowry. The police can arrest without warrant. The Dowry Prohibition Officer in each district can investigate complaints. Crucially, even if the parents of the bride voluntarily "give" dowry, both sides commit an offence.</p></div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">POCSO 2012</div>
+        <div class="law-title-block">
+          <div class="law-title">Protection of Children from Sexual Offences Act, 2012</div>
+          <div class="law-year">Amended 2019 — enhanced penalties</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span><span class="tag tag-amended">2019 Amendment</span></div>
+        <div class="jargon-box"><h4>⚖️ Key Provisions</h4><p class="jargon-text">Applies to all children under 18 — both boys and girls but disproportionately protects girls. <strong>Section 4:</strong> Penetrative sexual assault = minimum 10 years, up to life imprisonment. <strong>Section 5/6:</strong> Aggravated penetrative assault (by a person in authority, gang) = minimum 20 years to death penalty. <strong>Child-friendly courts</strong> with special procedures are mandatory. Identity of child victims must never be disclosed.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Any sexual act with a child under 18 is a serious crime. Even "touching" private parts, showing pornography to a child, or using a child for sexual gratification is punishable. The 2019 amendment added the death penalty for rape of a child under 12. Trials must be completed within 1 year. Any person who suspects child sexual abuse must report it to the police — failing to report is itself an offence under Section 21.</p></div>
+      </div>
+    </div>
+
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header">
+        <div class="law-number">ITPA 1956</div>
+        <div class="law-title-block">
+          <div class="law-title">Immoral Traffic (Prevention) Act, 1956</div>
+          <div class="law-year">India's main anti-trafficking law</div>
+        </div>
+        <div class="law-expand">▾</div>
+      </div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span></div>
+        <div class="jargon-box"><h4>⚖️ Key Provisions</h4><p class="jargon-text"><strong>Section 5:</strong> Procuring, inducing or taking a person for prostitution = 3–7 years rigorous imprisonment. <strong>Section 6:</strong> Detaining a person in a brothel = 7 years to life imprisonment. <strong>BNS Section 370</strong> (Trafficking): Recruitment, transportation, harbouring for exploitation = 7 years to life imprisonment. Trafficking of a child = 10 years to life.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">No one can force, trick, or sell a woman into prostitution. Anyone who runs a brothel, forces women to work in it, or profits from it commits a serious crime. The government provides rescue, rehabilitation (shelter, counselling, vocational training) and legal aid to trafficking survivors through the Ujjawala scheme. Anti-Human Trafficking Units (AHTU) operate in police stations in every district.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EQUALITY LAWS -->
+<div id="laws-equality" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">Home</span><span class="sep">›</span>
+    <span onclick="showPage('laws')">Laws</span><span class="sep">›</span>
+    <span class="current">Equality & Employment Laws</span>
+  </div>
+  <button class="back-btn" onclick="showPage('laws')">← Back to Laws</button>
+  <div class="section-header" style="padding-top:0">
+    <div class="section-tag">Equality & Employment</div>
+    <h2>Equality & Employment Laws</h2>
+  </div>
+  <div class="detail-wrap">
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">ERA 1976</div><div class="law-title-block"><div class="law-title">Equal Remuneration Act, 1976</div><div class="law-year">Equal pay for equal work</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Key Provisions</h4><p class="jargon-text">Section 4: Equal remuneration for work of same/similar nature. Section 5: No discrimination in recruitment, promotions, training, transfer, or any employment condition on the basis of sex. Employer must maintain a register of workers showing wages paid to men and women separately.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Same job = same pay, regardless of gender. This applies to government jobs, private companies, factories, shops, plantations — all employers. The law also prevents employers from advertising "only male candidates" for jobs that women can equally perform.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">MBA 2017</div><div class="law-title-block"><div class="law-title">Maternity Benefit (Amendment) Act, 2017</div><div class="law-year">26 weeks paid maternity leave</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Key Provisions</h4><p class="jargon-text">Section 5(3): 26 weeks paid leave for first two children; 12 weeks for third child. Section 5(4): 12 weeks for adoptive mother (from adoption date). Section 11A: Compulsory crèche facility for establishments with 50+ employees; women workers have right to visit crèche 4 times a day. Section 5(5): Work from home option after maternity leave (at employer's discretion).</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Working mothers get 26 weeks (6.5 months) paid leave for having a baby — which is among the longest in Asia. You cannot be fired while on maternity leave. Your job is protected and you return to the same or equivalent position. You can also request to work from home after maternity leave ends. Employers who deny these benefits face criminal prosecution.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">FA 1948</div><div class="law-title-block"><div class="law-title">Factories Act, 1948 — Women's Provisions</div><div class="law-year">Safety, health, crèche, working hours</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Key Provisions</h4><p class="jargon-text">Section 19: Separate latrines and urinals for female workers. Section 22(2): Safety measures must account for women's safety specifically. Section 27: Women prohibited from cleaning machinery in motion. Section 48: Crèche for factories with 30+ women workers. Section 66: Women cannot work before 6 am or after 7 pm (unless state permits night shifts with safety protocols).</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Any factory with women workers must have separate, clean toilets for women, a safe work environment, and a crèche if there are 30+ women workers. Women cannot be asked to work night shifts unless the state government has made specific rules allowing it with proper safety — including transport and security. Working during night requires the woman's consent.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">CA 2013</div><div class="law-title-block"><div class="law-title">Companies Act, 2013 — Woman Director</div><div class="law-year">Mandatory board-level representation</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Key Provisions</h4><p class="jargon-text">Section 149(1): Listed companies and public companies with paid-up capital ≥₹100 crore or turnover ≥₹300 crore must have at least one woman director. SEBI (Listing Obligations and Disclosure Requirements) Regulations 2015 also require that the top 1,000 listed companies by market capitalization must have at least one independent woman director.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Large, listed companies must legally have at least one woman on their board. This ensures women have representation in the highest corporate decision-making bodies. A company that does not comply faces a penalty of ₹50,000–₹5 lakh and the company officers can be fined ₹10,000–₹1 lakh.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAMILY LAWS -->
+<div id="laws-family" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">Home</span><span class="sep">›</span>
+    <span onclick="showPage('laws')">Laws</span><span class="sep">›</span>
+    <span class="current">Family & Personal Laws</span>
+  </div>
+  <button class="back-btn" onclick="showPage('laws')">← Back to Laws</button>
+  <div class="section-header" style="padding-top:0">
+    <div class="section-tag">Family & Personal Laws</div>
+    <h2>Family & Personal Laws</h2>
+  </div>
+  <div class="detail-wrap">
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">HMA 1955</div><div class="law-title-block"><div class="law-title">Hindu Marriage Act, 1955</div><div class="law-year">Marriage, divorce, custody for Hindus</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Key Provisions</h4><p class="jargon-text">Section 5: Conditions of valid marriage — both parties must be of sound mind, not within prohibited degrees of relationship, bride ≥18, groom ≥21. Section 13: Grounds for divorce available equally to husband and wife — cruelty, desertion (2 years), adultery, conversion, unsoundness of mind, communicable disease, renunciation. Section 13B: Mutual consent divorce — after 1 year of separation. Section 26: Custody of children — welfare of child is paramount consideration.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">A Hindu woman has equal rights to seek divorce on multiple grounds — not just cruelty or adultery, but also if the husband has leprosy, is mentally unsound, has a living spouse (bigamy), or has deserted her for 2 years. In custody disputes, the court decides based on what is best for the child — not automatically the father. Women also have additional grounds for divorce under Section 13(2) including if married before 15 (can repudiate at 18).</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">HSA 1956</div><div class="law-title-block"><div class="law-title">Hindu Succession Act, 1956 (Amended 2005)</div><div class="law-year">Equal inheritance for daughters</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Key Provisions</h4><p class="jargon-text">Section 6 (2005 Amendment): Daughter of a coparcener becomes a coparcener by birth — same right as a son to ancestral property. Section 14: Property possessed by a Hindu female shall be held by her as full owner — not limited owner. Section 15: Female intestate succession — property passes first to sons, daughters, husband, then others (gender-neutral order).</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">A daughter is now legally equal to a son in receiving ancestral property — this applies whether or not her father is alive. A Hindu woman's property belongs entirely to her and she can sell, gift, or will it as she pleases. The Supreme Court in Vineeta Sharma (2020) confirmed this right applies retroactively — even if the father died before 2005.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">SMA 1954</div><div class="law-title-block"><div class="law-title">Special Marriage Act, 1954</div><div class="law-year">Interfaith / civil marriages</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Key Provisions</h4><p class="jargon-text">Provides for civil marriage between any two persons regardless of religion or caste. Minimum age: bride 18, groom 21. Both parties must give consent freely. Notice of intended marriage must be given 30 days before registration. Section 27: Divorce available on same grounds as Hindu Marriage Act. Applies to all citizens of India and Indian nationals abroad.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Any woman can marry any man regardless of religion, caste, or nationality through a civil marriage under this Act. No religious ceremony is needed. The marriage is registered with the Marriage Registrar. This protects women choosing inter-faith or inter-caste marriages — their marriage has full legal standing and all rights (maintenance, inheritance, divorce) follow.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">MLA 1986</div><div class="law-title-block"><div class="law-title">Muslim Women (Protection of Rights on Divorce) Act, 1986 · Amended 2019</div><div class="law-year">Triple talaq criminalised in 2019</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-legal">Act</span><span class="tag tag-amended">2019 Amendment</span></div>
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text">The <strong>Muslim Women (Protection of Rights on Marriage) Act, 2019</strong> criminalizes instant triple talaq (pronouncing talaq three times orally, in writing, or electronically). Declaring triple talaq is void and illegal. Penalty: up to 3 years imprisonment + fine. Additionally, a Muslim divorced woman is entitled to reasonable and fair maintenance beyond the iddat period under the 1986 Act (as interpreted in the Shah Bano case).</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">A Muslim husband cannot divorce his wife by saying "talaq" three times in one sitting — this was declared illegal in 2019. Any such pronouncement is now void (has no legal effect) and the husband can be imprisoned up to 3 years. A Muslim divorced woman has the right to maintenance and support — this was established by the Supreme Court in the landmark Shah Bano case (1985) and reinforced since.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CRIMINAL LAWS -->
+<div id="laws-criminal" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">Home</span><span class="sep">›</span>
+    <span onclick="showPage('laws')">Laws</span><span class="sep">›</span>
+    <span class="current">Criminal Laws (BNS 2023)</span>
+  </div>
+  <button class="back-btn" onclick="showPage('laws')">← Back to Laws</button>
+  <div class="section-header" style="padding-top:0">
+    <div class="section-tag">BNS 2023 — New Criminal Laws</div>
+    <h2>Criminal Laws Protecting Women</h2>
+    <p>As of July 1, 2024, the Bharatiya Nyaya Sanhita (BNS) 2023 replaced the Indian Penal Code. Here are the key sections protecting women.</p>
+  </div>
+  <div class="detail-wrap">
+    <div class="detail-intro"><h3>New Law, Same Protections — Enhanced</h3><p>The BNS 2023 retained and strengthened most IPC provisions for women, added new offences (organized crime, terrorism-linked crimes), and introduced the concept of community service for minor offences. All major crimes against women remain cognizable and non-bailable.</p></div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">BNS §63</div><div class="law-title-block"><div class="law-title">Rape</div><div class="law-year">Bharatiya Nyaya Sanhita, 2023 · Section 63</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text">A man is said to commit rape who has sexual intercourse with a woman under seven circumstances including against her will, without her consent, with consent obtained by putting her in fear of death or hurt, with consent when she believes him to be her husband. <strong>Consent</strong> means unequivocal voluntary agreement when the woman communicates willingness to participate in the specific sexual act. Absence of physical resistance is not consent.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Rape is any sexual intercourse without clear, voluntary consent. Silence, being unconscious, or being drunk does NOT mean consent. Punishment: Minimum 10 years rigorous imprisonment to life imprisonment + fine. If the survivor is under 16: minimum 20 years. "Zero FIR" — you can report rape at any police station, not just the local one.</p></div>
+        <div class="penalty-box"><div class="pi">⚠️</div><p><strong>Punishment</strong>Rigorous imprisonment not less than 10 years to life + fine. Survivor's identity protected — disclosure punishable under Section 72, BNS.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">BNS §75</div><div class="law-title-block"><div class="law-title">Sexual Harassment</div><div class="law-year">Bharatiya Nyaya Sanhita, 2023 · Section 75</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text">A man committing any of the following acts: (i) physical contact and advances involving unwelcome and explicit sexual overtures; or (ii) a demand or request for sexual favours; or (iii) showing pornography against the will of a woman; or (iv) making sexually coloured remarks — commits the offence of sexual harassment.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Sexual harassment is a criminal offence — not just a workplace complaint matter. Comments about a woman's body, sending inappropriate messages, showing explicit videos without consent, or repeatedly asking for dates after being refused — all constitute sexual harassment under BNS. Punishment: Up to 3 years imprisonment + fine for severe forms; up to 1 year for verbal harassment.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">BNS §77</div><div class="law-title-block"><div class="law-title">Stalking</div><div class="law-year">Bharatiya Nyaya Sanhita, 2023 · Section 77</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text">Any man who follows a woman and contacts, or attempts to contact, such woman to foster personal interaction repeatedly, despite a clear indication of disinterest by such woman, or monitors the use by a woman of the internet, email or any other form of electronic communication, commits the offence of stalking.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Following someone, repeatedly calling/texting, showing up at their home/workplace, or monitoring their social media/emails after being clearly told "no" — all constitute stalking. Even online monitoring and cyber-stalking is covered. First offence: 3 years imprisonment. Second offence: 5 years imprisonment. Stalking is a non-bailable offence on second conviction.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">BNS §79</div><div class="law-title-block"><div class="law-title">Voyeurism</div><div class="law-year">Bharatiya Nyaya Sanhita, 2023 · Section 79</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text">Whoever watches, or captures the image of, a woman engaging in a private act in circumstances where she would usually have the expectation of not being observed — commits voyeurism. "Private act" includes an act of watching carried out in a bedroom, toilet, bathroom, changing room or any other place which provides seclusion.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Recording, photographing, or watching a woman in a private setting (bathroom, bedroom, changing room) without consent is a crime. This includes hidden cameras. It also covers sharing such images online. First conviction: 1–3 years imprisonment. Subsequent conviction: 3–7 years imprisonment. If images are shared online (Section 67A, IT Act also applies) punishment is cumulative.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">BNS §85</div><div class="law-title-block"><div class="law-title">Cruelty by Husband / Relatives (Dowry Harassment)</div><div class="law-year">Bharatiya Nyaya Sanhita, 2023 · Section 85 (formerly IPC 498A)</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text"><strong>Section 85:</strong> "Cruelty" means (a) any wilful conduct likely to drive the woman to suicide or cause grave injury or danger to her life, limb or health; or (b) harassment with a view to coercing her or any of her relatives to meet any unlawful demand for any property or valuable security. This is a <strong>cognizable and non-bailable</strong> offence — police can arrest without warrant and bail is not automatic.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">If your husband or in-laws mentally torture you, physically abuse you, or harass you for money/dowry, they can be arrested without a warrant. The police cannot refuse to register an FIR. This law covers both physical and psychological cruelty. Punishment: up to 3 years imprisonment + fine. This law is one of the most used women's protection provisions in India.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">BNS §124</div><div class="law-title-block"><div class="law-title">Acid Attack</div><div class="law-year">Bharatiya Nyaya Sanhita, 2023 · Section 124</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text">Whoever throws or administers acid on any person, or attempts to do so, with the intention of causing permanent or partial damage or deformity or burns, disfigures, disables, or maims any person, shall be punished with imprisonment not less than 10 years but which may extend to life, and fine. Acid sales are regulated — sellers must maintain buyer registers.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Throwing acid on a woman is punishable by minimum 10 years to life imprisonment. Acid attack survivors have specific rights: free first aid and medical treatment at all hospitals (government and private) must be provided immediately without demanding police documents first. The government provides compensation of ₹3 lakh minimum to acid attack survivors under the Nirbhaya Fund.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--           ARTICLES — CATEGORY PAGE          -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="articles" class="page">
+  <div class="section-header">
+    <div class="section-tag">Constitutional Articles</div>
+    <h2>Constitutional Provisions for Women</h2>
+    <p>Articles of the Indian Constitution that directly protect and empower women — with legal text and plain-language explanations.</p>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card" onclick="showDetail('articles-fundamental')">
+      <div class="cat-card-icon">⚖️</div>
+      <h3>Fundamental Rights</h3>
+      <p>Articles 14, 15, 16, 19, 21 — the core rights that every woman can enforce in court.</p>
+      <div class="cat-card-footer"><span>5 Articles</span><span class="cat-card-arrow">→</span></div>
+    </div>
+    <div class="cat-card" onclick="showDetail('articles-directive')">
+      <div class="cat-card-icon">🏛️</div>
+      <h3>Directive Principles</h3>
+      <p>Articles 39, 42, 43, 46, 47 — state duties toward women's welfare, equal pay, and health.</p>
+      <div class="cat-card-footer"><span>5 Articles</span><span class="cat-card-arrow">→</span></div>
+    </div>
+    <div class="cat-card" onclick="showDetail('articles-governance')">
+      <div class="cat-card-icon">🗳️</div>
+      <h3>Governance & Representation</h3>
+      <p>Articles 243D, 243T, 326, and the 106th Amendment — women in governance.</p>
+      <div class="cat-card-footer"><span>4 Articles</span><span class="cat-card-arrow">→</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- FUNDAMENTAL RIGHTS ARTICLES -->
+<div id="articles-fundamental" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">Home</span><span class="sep">›</span>
+    <span onclick="showPage('articles')">Articles</span><span class="sep">›</span>
+    <span class="current">Fundamental Rights</span>
+  </div>
+  <button class="back-btn" onclick="showPage('articles')">← Back to Articles</button>
+  <div class="section-header" style="padding-top:0">
+    <div class="section-tag">Part III — Fundamental Rights</div>
+    <h2>Fundamental Rights Protecting Women</h2>
+    <p>These rights are directly enforceable — you can approach the High Court (Article 226) or Supreme Court (Article 32) directly if they are violated.</p>
+  </div>
+  <div class="detail-wrap">
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">Art. 14</div><div class="law-title-block"><div class="law-title">Right to Equality Before Law</div><div class="law-year">Constitution of India</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text"><strong>"The State shall not deny to any person equality before the law or the equal protection of the laws within the territory of India."</strong> <em>Equality before law</em> = no one is above the law. <em>Equal protection of laws</em> = similar treatment in similar circumstances. Applies to all persons — citizens and non-citizens alike.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">No woman can be given fewer rights or lesser treatment by the government simply because she is a woman. The law applies equally to all. If a law or government action treats women worse than men without a valid reason, it can be challenged in court under Article 14. This article has been used to strike down discriminatory service rules, retirement ages, and exclusions from institutions.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">Art. 15</div><div class="law-title-block"><div class="law-title">Prohibition of Discrimination on Grounds of Sex</div><div class="law-year">Constitution of India · Art. 15(1) + 15(3)</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text"><strong>Art. 15(1):</strong> "The State shall not discriminate against any citizen on grounds only of religion, race, caste, sex, place of birth or any of them." <strong>Art. 15(3):</strong> "Nothing in this article shall prevent the State from making any special provision for women and children." This dual structure prohibits discrimination while permitting affirmative action for women.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">The government cannot discriminate against women. But it CAN create special benefits only for women — like women-only colleges, lower exam fees for women, reserved seats in buses, or special scholarships. This is the constitutional basis for all government schemes specifically targeting women. The word "sex" in Article 15 has been interpreted to include "gender identity" by the Supreme Court in NALSA v. Union of India (2014).</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">Art. 16</div><div class="law-title-block"><div class="law-title">Equality of Opportunity in Public Employment</div><div class="law-year">Constitution of India</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text"><strong>Art. 16(1):</strong> "There shall be equality of opportunity for all citizens in matters relating to employment or appointment to any office under the State." <strong>Art. 16(2):</strong> No citizen shall be ineligible for or discriminated against in respect of employment on grounds of sex.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Any government job — from IAS to clerk — must be equally open to women. The government cannot have a rule that only men can apply for a post unless there is a very specific functional reason. Women can serve in the armed forces, police, judiciary, and all public service positions. Arbitrary age limits or physical criteria that exclude women without justification violate Article 16.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">Art. 19</div><div class="law-title-block"><div class="law-title">Freedom of Speech, Movement & Profession</div><div class="law-year">Constitution of India</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text">Art. 19(1)(a): Freedom of speech and expression. (b) Right to peaceful assembly. (c) Right to form associations. (d) Right to move freely throughout the territory of India. (e) Right to reside in any part of India. (g) Right to practise any profession, occupation, trade or business. All these rights apply equally to women.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">A woman has the full right to express herself, choose any career, live anywhere in India, and move freely without anyone's permission. These rights cannot be taken away by a husband, family, or community. The Supreme Court has held that "honour killings" and "khap panchayat" diktats that restrict women's freedom of choice in marriage directly violate Article 19.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">Art. 21</div><div class="law-title-block"><div class="law-title">Right to Life, Dignity & Personal Liberty</div><div class="law-year">Constitution of India — Most Expanded Article</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text"><strong>"No person shall be deprived of his life or personal liberty except according to procedure established by law."</strong> The Supreme Court has progressively expanded Art. 21 to include: right to live with dignity, right to privacy, right to health, right to education, right to livelihood, right to reproductive freedom, right to clean environment, right to legal aid.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Article 21 is the most powerful article for women — it has been interpreted broadly by the Supreme Court to include the right to live with dignity (meaning domestic abuse violates it), the right to privacy (reproductive choices are personal), the right to health, and even the right to choose one's partner. Many landmark women's rights judgements — Shah Bano, Vishaka, Puttaswamy — are rooted in Article 21.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIRECTIVE PRINCIPLES ARTICLES -->
+<div id="articles-directive" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">Home</span><span class="sep">›</span>
+    <span onclick="showPage('articles')">Articles</span><span class="sep">›</span>
+    <span class="current">Directive Principles</span>
+  </div>
+  <button class="back-btn" onclick="showPage('articles')">← Back to Articles</button>
+  <div class="section-header" style="padding-top:0">
+    <div class="section-tag">Part IV — Directive Principles of State Policy</div>
+    <h2>Directive Principles for Women's Welfare</h2>
+    <p>These are guiding principles for the state — not directly enforceable in court, but courts use them to interpret laws, and Parliament must enact laws consistent with them.</p>
+  </div>
+  <div class="detail-wrap">
+    <div class="detail-intro"><h3>What Are Directive Principles?</h3><p>Directive Principles (Part IV, Articles 36–51) are like a blueprint for the state. They cannot be directly enforced in court like Fundamental Rights, but they guide legislation and policy. The Supreme Court often reads Fundamental Rights and Directive Principles together.</p></div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">Art. 39(a)</div><div class="law-title-block"><div class="law-title">Equal Right to Adequate Livelihood</div><div class="law-year">Directive Principle</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text"><strong>"The State shall, in particular, direct its policy towards securing — (a) that the citizens, men and women equally, have the right to an adequate means of livelihood."</strong></p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">The government must ensure that women have equal access to livelihoods — jobs, businesses, and economic opportunities. This is the constitutional basis for women's self-help group schemes, MUDRA loans for women, and employment guarantee schemes that must include women.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">Art. 39(d)</div><div class="law-title-block"><div class="law-title">Equal Pay for Equal Work</div><div class="law-year">Directive Principle — basis for Equal Remuneration Act</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text"><strong>"The State shall, in particular, direct its policy towards securing — (d) that there is equal pay for equal work for both men and women."</strong> This Directive Principle was given legislative effect through the Equal Remuneration Act, 1976.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">The Constitution itself directs the government to ensure women get the same pay as men for the same work. The Equal Remuneration Act makes this legally enforceable. Courts regularly use this Article to interpret employment disputes in women's favour.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">Art. 42</div><div class="law-title-block"><div class="law-title">Just & Humane Conditions of Work + Maternity Relief</div><div class="law-year">Directive Principle</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text"><strong>"The State shall make provision for securing just and humane conditions of work and for maternity relief."</strong> The words "maternity relief" specifically recognize women's reproductive role in the Constitution itself. This is the constitutional basis for the Maternity Benefit Act, 1961.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">The Constitution directly mandates that the state create laws for maternity protection. This means maternity leave, crèche facilities, and protection against pregnancy-based discrimination are not just policy choices — they flow from a constitutional obligation. Companies cannot legally treat maternity as a reason to fire or demote a woman.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">Art. 46</div><div class="law-title-block"><div class="law-title">Educational and Economic Interests of Weaker Sections</div><div class="law-year">Directive Principle</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text"><strong>"The State shall promote with special care the educational and economic interests of the weaker sections of the people, and in particular of the Scheduled Castes and Scheduled Tribes, and shall protect them from social injustice and all forms of exploitation."</strong></p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Women — especially from SC/ST and poor backgrounds — deserve special government support in education and economic opportunities. This is the basis for Kasturba Gandhi Balika Vidyalayas, girl-child scholarships, women's reservation in government jobs, and schemes like Beti Bachao Beti Padhao and Sukanya Samriddhi Yojana.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">Art. 51A(e)</div><div class="law-title-block"><div class="law-title">Fundamental Duty — Renounce Practices Derogatory to Women</div><div class="law-year">Fundamental Duties · Added by 42nd Amendment, 1976</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text"><strong>"It shall be the duty of every citizen of India — (e) to promote harmony and the spirit of common brotherhood amongst all the people of India transcending religious, linguistic and regional or sectional diversities; to renounce practices derogatory to the dignity of women."</strong></p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Every Indian citizen — not just the government — has a constitutional duty to stop practices that insult or demean women. This includes practices like female foeticide, child marriage, dowry, sati, devadasi system, and sexual objectification of women. While this duty cannot be enforced directly in court, courts use it to justify upholding laws that restrict such practices.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GOVERNANCE ARTICLES -->
+<div id="articles-governance" class="page">
+  <div class="breadcrumb">
+    <span onclick="showPage('home')">Home</span><span class="sep">›</span>
+    <span onclick="showPage('articles')">Articles</span><span class="sep">›</span>
+    <span class="current">Governance & Representation</span>
+  </div>
+  <button class="back-btn" onclick="showPage('articles')">← Back to Articles</button>
+  <div class="section-header" style="padding-top:0">
+    <div class="section-tag">Governance & Political Representation</div>
+    <h2>Women in Governance</h2>
+  </div>
+  <div class="detail-wrap">
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">Art. 243D</div><div class="law-title-block"><div class="law-title">Reservation in Panchayats — 73rd Amendment</div><div class="law-year">73rd Constitutional Amendment, 1992</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text"><strong>Art. 243D(3):</strong> Not less than one-third of the total number of seats reserved for women in Panchayati Raj institutions. <strong>Art. 243D(4):</strong> Not less than one-third of the offices of Chairpersons at each level reserved for women. Several states increased this to 50% (Bihar, MP, Uttarakhand, Rajasthan, Himachal Pradesh, Odisha).</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">At least 33% — and in many states 50% — of elected seats and leadership positions in village panchayats, panchayat samitis, and zila parishads are reserved for women. This has created over 1.4 million women elected representatives in local governance — making India one of the largest experimenters with women's political reservation globally.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">Art. 243T</div><div class="law-title-block"><div class="law-title">Reservation in Municipalities — 74th Amendment</div><div class="law-year">74th Constitutional Amendment, 1992</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text"><strong>Art. 243T(3):</strong> Not less than one-third of the total number of seats in every Municipality reserved for women. Applies to Municipal Corporations, Municipal Councils, and Nagar Panchayats. Many states have also reserved 50% of mayoral/chairperson posts for women.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">Same as Panchayat reservation, but for urban local bodies — municipal corporations, municipalities, and town councils. At least 1 in 3 elected councillors in any city's municipal body must be a woman. The Mayor or Chairperson position is also reserved in proportion. This gives women a direct voice in city planning, water, sanitation, and urban development decisions.</p></div>
+      </div>
+    </div>
+    <div class="law-card" onclick="toggleCard(this)">
+      <div class="law-card-header"><div class="law-number">106th Amdt.</div><div class="law-title-block"><div class="law-title">Nari Shakti Vandan Adhiniyam — 33% Reservation in Parliament</div><div class="law-year">106th Constitutional Amendment Act, 2023</div></div><div class="law-expand">▾</div></div>
+      <div class="law-body">
+        <div class="tag-row"><span class="tag tag-constitutional">2023 Amendment</span></div>
+        <div class="jargon-box"><h4>⚖️ Legal Text</h4><p class="jargon-text">Inserts <strong>Articles 330A and 332A</strong> — reserving not less than one-third of the total number of seats for women in the Lok Sabha, the Legislative Assemblies of every State, and the Legislative Assembly of the NCT of Delhi. This reservation will come into effect after the next delimitation exercise following the first census after the commencement of this Amendment.</p></div>
+        <div class="simple-box"><h4>💬 In Simple Words</h4><p class="simple-text">The Parliament passed a historic amendment in September 2023 that will reserve 33% of Lok Sabha and state assembly seats for women. This is not yet in force — it will be activated after the next census (expected 2026) and subsequent delimitation of constituencies. Once active, this will ensure at least 181 of 543 Lok Sabha seats are reserved for women candidates.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--              SEARCH PAGE                    -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="search-page" class="page">
+  <div class="search-wrap">
+    <div class="section-tag" style="margin-bottom:12px">Search</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--deep-sage);margin-bottom:20px">Search Laws, Rights & Articles</h2>
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search 'maternity leave', 'dowry', 'Article 14', 'workplace rights'..." oninput="doSearch(this.value)">
+    </div>
+    <p style="font-size:0.8rem;color:var(--light-grey);margin-top:10px">Try: maternity • dowry • harassment • property • education • rape • stalking • divorce</p>
+  </div>
+  <div class="search-results" id="searchResults"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--              BIG SIS AI PAGE                -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="bigsis" class="page">
+  <div class="bigsis-hero">
+
+    <!-- LEFT — Profile -->
+    <div class="bigsis-profile">
+      <div class="bigsis-avatar">
+        🌿
+        <div class="bigsis-status-dot"></div>
+      </div>
+      <div class="bigsis-name">Big Sis</div>
+      <div class="bigsis-title">Your AI Legal Companion · HerLaw</div>
+      <div class="bigsis-desc">I'm here to listen without judgement. Tell me what's happening in your life — at home, work, school, or anywhere — and I'll tell you exactly which laws protect you and what you can do next.</div>
+      <div class="bigsis-traits">
+        <div class="bigsis-trait"><span class="bigsis-trait-icon">🤝</span> Empathetic & non-judgemental</div>
+        <div class="bigsis-trait"><span class="bigsis-trait-icon">⚖️</span> Cites exact Indian laws & articles</div>
+        <div class="bigsis-trait"><span class="bigsis-trait-icon">🔐</span> Your conversation stays private</div>
+        <div class="bigsis-trait"><span class="bigsis-trait-icon">📞</span> Shares emergency helplines</div>
+        <div class="bigsis-trait"><span class="bigsis-trait-icon">🗣️</span> Explains legal terms in simple words</div>
+      </div>
+      <div class="bigsis-disclaimer">
+        ⚠️ <strong>Important:</strong> Big Sis provides legal awareness and information, not professional legal advice. For personal legal representation, please consult a qualified advocate. In emergencies, call <strong>112</strong>.
+      </div>
+    </div>
+
+    <!-- RIGHT — Chat -->
+    <div>
+      <div class="chat-area" id="chatArea">
+        <div class="chat-header">
+          <div class="chat-header-avatar">🌿</div>
+          <div>
+            <div class="chat-header-name">Big Sis</div>
+            <div class="chat-header-sub">HerLaw AI Legal Companion</div>
+          </div>
+          <div class="chat-header-dot"></div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+          <!-- Welcome message -->
+          <div class="msg bigsis">
+            <div class="msg-avatar">🌿</div>
+            <div class="msg-bubble">
+              Hello, I'm so glad you're here. 💚<br><br>
+              I'm Big Sis — your personal legal companion on HerLaw. You can talk to me about anything that's bothering you, and I'll help you understand what the law says and what you can do.<br><br>
+              <strong>Whatever you're going through — you are not alone, and the law is on your side.</strong><br><br>
+              Tell me what's happening in your life, in your own words. I'm listening.
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick prompts -->
+        <div class="quick-prompts" id="quickPrompts">
+          <button class="quick-prompt" onclick="sendQuick(this, 'My husband hits me and I am scared to leave home')">😢 My husband is hurting me</button>
+          <button class="quick-prompt" onclick="sendQuick(this, 'My boss is making inappropriate comments and touching me at work')">💼 Harassment at work</button>
+          <button class="quick-prompt" onclick="sendQuick(this, 'My in-laws are demanding money and harassing me for dowry')">🏠 Dowry harassment</button>
+          <button class="quick-prompt" onclick="sendQuick(this, 'My family refuses to let me go to college and wants me to get married')">📚 Forced to leave education</button>
+          <button class="quick-prompt" onclick="sendQuick(this, 'My employer paid me less than my male colleague for the same job')">💰 Paid less than male colleague</button>
+          <button class="quick-prompt" onclick="sendQuick(this, 'Someone is following me and sending me threatening messages online')">📱 Being stalked online</button>
+        </div>
+
+        <div class="chat-input-area">
+          <textarea
+            class="chat-textarea"
+            id="chatInput"
+            placeholder="Tell Big Sis what's happening... (in any language you're comfortable with)"
+            rows="1"
+            onkeydown="handleKey(event)"
+            oninput="autoResize(this)"
+          ></textarea>
+          <button class="chat-send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <strong>HerLaw</strong> — India's Women's Legal Rights Portal<br>
+  Content based on verified Indian legislation and constitutional provisions as of 2024.<br>
+  Laws updated to reflect the <strong>Bharatiya Nyaya Sanhita, 2023</strong> (in force July 1, 2024).<br><br>
+  <em>This portal is for legal awareness only. For personal legal advice, contact a qualified lawyer or call NCW helpline: <strong>7827170170</strong> | Women's Helpline: <strong>181</strong> | Emergency: <strong>112</strong></em>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const searchData = [
+  { id: 'rights-education', cat: 'Rights → Education', title: 'Right to Free & Compulsory Education (Article 21-A)', snippet: 'State must provide free schooling to children 6–14. Girls cannot be turned away or charged fees.', keywords: ['education','school','rte','article 21','compulsory'] },
+  { id: 'rights-education', cat: 'Rights → Education', title: 'Protection from Campus Sexual Harassment (UGC 2015)', snippet: 'Every university/college must have an Internal Complaints Committee. File at shebox.nic.in.', keywords: ['harassment','campus','college','ugc','posh','education'] },
+  { id: 'rights-education', cat: 'Rights → Education', title: 'Child Marriage Prohibition Act (2006)', snippet: 'Girls cannot be married below 18. Child marriage is voidable. 2 year imprisonment for arrangers.', keywords: ['child marriage','marriage','school','education','minor'] },
+  { id: 'rights-workplace', cat: 'Rights → Workplace', title: 'Equal Pay for Equal Work (Equal Remuneration Act, 1976)', snippet: 'Same job = same pay regardless of gender. Employer can be fined ₹10,000–₹20,000.', keywords: ['equal pay','salary','wages','remuneration','work','employment'] },
+  { id: 'rights-workplace', cat: 'Rights → Workplace', title: 'POSH Act, 2013 — Workplace Sexual Harassment', snippet: 'All organizations with 10+ employees must have ICC. File at shebox.nic.in or call 7827170170.', keywords: ['harassment','workplace','posh','office','sexual harassment','icc'] },
+  { id: 'rights-workplace', cat: 'Rights → Workplace', title: 'Maternity Benefit (Amendment) Act, 2017 — 26 Weeks Leave', snippet: '26 weeks paid leave for first two children. Job protection. Crèche mandatory for 50+ employees.', keywords: ['maternity','leave','pregnancy','baby','crèche','creche','job'] },
+  { id: 'rights-health', cat: 'Rights → Health', title: 'Medical Termination of Pregnancy Act, 1971 (Amended 2021)', snippet: 'Legal abortion up to 20 weeks; 24 weeks for vulnerable women. Identity of woman is protected.', keywords: ['abortion','pregnancy','mtp','reproductive','health','terminate'] },
+  { id: 'rights-health', cat: 'Rights → Health', title: 'PCPNDT Act — Ban on Sex Determination', snippet: 'Sex determination of unborn child is illegal. Punishable by 3–5 years imprisonment.', keywords: ['sex determination','foeticide','girl child','ultrasound','pcpndt','gender'] },
+  { id: 'rights-property', cat: 'Rights → Property', title: 'Hindu Succession (Amendment) Act, 2005 — Equal Inheritance', snippet: 'Daughters have the same birth-right as sons to ancestral property. Confirmed by Supreme Court in 2020.', keywords: ['property','inheritance','daughter','succession','ancestral','land'] },
+  { id: 'rights-property', cat: 'Rights → Property', title: 'Streedhan — A Woman\'s Personal Property', snippet: 'All jewellery and gifts given to a woman belong to her alone. Withholding them is a criminal offence.', keywords: ['streedhan','jewellery','jewelry','dowry','property','gifts','marriage'] },
+  { id: 'rights-property', cat: 'Rights → Property', title: 'Right to Maintenance (BNSS Section 144)', snippet: 'If husband refuses to support you, court can order monthly maintenance payments.', keywords: ['maintenance','alimony','divorce','husband','money','support'] },
+  { id: 'rights-safety', cat: 'Rights → Safety', title: 'Domestic Violence Act, 2005', snippet: 'Covers physical, emotional, and economic abuse. Residence orders — cannot be evicted. Call 181.', keywords: ['domestic violence','abuse','husband','husband abuse','physical','emotional','protection order'] },
+  { id: 'rights-safety', cat: 'Rights → Safety', title: 'Dowry Prohibition Act + BNS Section 85', snippet: 'Dowry demands, harassment, and cruelty are cognizable offences. Police can arrest without warrant.', keywords: ['dowry','498a','cruelty','harassment','in-laws','husband','bns 85'] },
+  { id: 'laws-criminal', cat: 'Laws → Criminal', title: 'Rape — BNS Section 63', snippet: 'Minimum 10 years to life imprisonment. Zero FIR at any police station. Survivor\'s identity protected.', keywords: ['rape','sexual assault','bns 63','zero fir','survivor','assault'] },
+  { id: 'laws-criminal', cat: 'Laws → Criminal', title: 'Stalking — BNS Section 77', snippet: 'Physical and cyber-stalking both illegal. 3 years first offence. 5 years repeat offence.', keywords: ['stalking','following','harassing','online','cyber stalking','cyberstalking','bns 77'] },
+  { id: 'laws-criminal', cat: 'Laws → Criminal', title: 'Voyeurism — BNS Section 79', snippet: 'Filming or watching woman in private = 1–7 years imprisonment. Includes hidden cameras.', keywords: ['voyeurism','filming','camera','recording','privacy','bathroom'] },
+  { id: 'laws-criminal', cat: 'Laws → Criminal', title: 'Acid Attack — BNS Section 124', snippet: 'Minimum 10 years imprisonment. Free immediate medical treatment at all hospitals is mandatory.', keywords: ['acid attack','acid','disfigure','bns 124'] },
+  { id: 'laws-family', cat: 'Laws → Family', title: 'Hindu Marriage Act, 1955 — Divorce Rights', snippet: 'Women have equal grounds for divorce — cruelty, desertion, bigamy, mental illness, and more.', keywords: ['divorce','marriage','hindu','separation','custody','cruelty','desertion'] },
+  { id: 'laws-family', cat: 'Laws → Family', title: 'Triple Talaq — Muslim Women (Protection of Rights on Marriage) Act, 2019', snippet: 'Instant triple talaq is illegal and void. Husband can be imprisoned up to 3 years.', keywords: ['triple talaq','talaq','muslim','divorce','muslim woman'] },
+  { id: 'articles-fundamental', cat: 'Constitutional Articles', title: 'Article 14 — Right to Equality', snippet: 'State cannot deny equality before law to any person. Basis for challenging discriminatory laws.', keywords: ['article 14','equality','equal','constitution','discrimination'] },
+  { id: 'articles-fundamental', cat: 'Constitutional Articles', title: 'Article 15 — Prohibition of Discrimination Based on Sex', snippet: 'State cannot discriminate on sex. But can make special provisions for women (Art. 15(3)).', keywords: ['article 15','discrimination','sex','constitution','fundamental right'] },
+  { id: 'articles-fundamental', cat: 'Constitutional Articles', title: 'Article 21 — Right to Life with Dignity', snippet: 'Interpreted broadly: includes privacy, reproductive rights, dignity, health, and education.', keywords: ['article 21','life','dignity','privacy','reproductive','liberty','constitution'] },
+  { id: 'articles-directive', cat: 'Constitutional Articles', title: 'Article 39(d) — Equal Pay Directive Principle', snippet: 'Constitution directs state to ensure equal pay for equal work. Basis for Equal Remuneration Act.', keywords: ['article 39','equal pay','directive principle','wages','remuneration'] },
+  { id: 'articles-governance', cat: 'Constitutional Articles', title: '106th Amendment — 33% Women\'s Reservation in Parliament (2023)', snippet: 'Parliament passed women\'s reservation in Lok Sabha and state assemblies. Pending delimitation.', keywords: ['reservation','parliament','women reservation','nari shakti','106th amendment','lok sabha'] },
+];
+
+function doSearch(query) {
+  const q = query.toLowerCase().trim();
+  const container = document.getElementById('searchResults');
+  if (!q) { container.innerHTML = ''; return; }
+  const results = searchData.filter(item =>
+    item.keywords.some(k => k.includes(q)) ||
+    item.title.toLowerCase().includes(q) ||
+    item.snippet.toLowerCase().includes(q) ||
+    item.cat.toLowerCase().includes(q)
+  );
+  if (!results.length) {
+    container.innerHTML = `<p style="color:var(--mid-grey);font-size:0.9rem;padding:20px 0">No results found for "<strong>${query}</strong>". Try: education, workplace, property, safety, article 14, maternity, dowry, harassment.</p>`;
+    return;
+  }
+  container.innerHTML = results.map(r => `
+    <div class="search-result-card" onclick="showDetail('${r.id}')">
+      <div class="src-meta"><span class="src-category">${r.cat}</span></div>
+      <div class="src-title">${r.title}</div>
+      <div class="src-snippet">${r.snippet}</div>
+    </div>
+  `).join('');
+}
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById(id);
+  if (page) { page.classList.add('active'); window.scrollTo(0,0); }
+}
+
+function showDetail(id) {
+  showPage(id);
+}
+
+function setActive(btn) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function setActiveByName(name) {
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    if (b.textContent.trim() === name) b.classList.add('active');
+    else b.classList.remove('active');
+  });
+}
+
+function toggleCard(card) {
+  card.classList.toggle('open');
+}
+
+// ═══════════════════════════════════════
+//           BIG SIS AI LOGIC
+// ═══════════════════════════════════════
+
+const conversationHistory = [];
+
+const BIG_SIS_SYSTEM = `You are "Big Sis" — a warm, deeply empathetic AI legal companion on HerLaw, India's women's rights portal. Your role is to:
+
+1. FIRST acknowledge the woman's feelings with genuine warmth and empathy (2-3 sentences). She may be scared, ashamed, angry, or confused. Make her feel heard and safe.
+
+2. THEN clearly identify which Indian laws, rights, and constitutional articles apply to her specific situation.
+
+3. For EACH relevant law, provide:
+   - The exact law name + section number (e.g., "Protection of Women from Domestic Violence Act, 2005, Section 3")
+   - One sentence of plain-language explanation
+   - A concrete next step she can take
+
+4. Always end with relevant helpline numbers from this list:
+   - Emergency: 112
+   - Women's Helpline: 181 (24/7, free, all states)
+   - NCW Helpline: 7827170170
+   - Anti-Human Trafficking: 1800-419-8588
+   - Child Helpline: 1098
+   - POSH/SHe-Box: shebox.nic.in
+
+TONE: Warm like an older sister. Never clinical, never cold. Use "you" and "your". Say things like "I hear you", "You're not alone", "You are protected by law", "This is not your fault".
+
+LANGUAGE: If the user writes in Hindi or any Indian language, respond in that same language with legal terms in English.
+
+FORMAT your response in this exact structure for easy parsing:
+[EMPATHY]
+Your empathetic opening here.
+[/EMPATHY]
+[LAWS]
+LAW::[Law Name & Section]::[Plain English explanation]::[Specific next step]
+LAW::[Law Name & Section]::[Plain English explanation]::[Specific next step]
+[/LAWS]
+[HELPLINES]
+HELPLINE::[Name]::[Number/URL]
+[/HELPLINES]
+[CLOSING]
+A warm closing sentence of encouragement.
+[/CLOSING]
+
+Always cite real, accurate Indian law. The BNS 2023 replaced IPC from July 1, 2024. Use BNS section numbers for new cases.`;
+
+function parseAndRenderBigSisResponse(raw) {
+  const empathyMatch = raw.match(/\[EMPATHY\]([\s\S]*?)\[\/EMPATHY\]/);
+  const lawsMatch = raw.match(/\[LAWS\]([\s\S]*?)\[\/LAWS\]/);
+  const helplinesMatch = raw.match(/\[HELPLINES\]([\s\S]*?)\[\/HELPLINES\]/);
+  const closingMatch = raw.match(/\[CLOSING\]([\s\S]*?)\[\/CLOSING\]/);
+
+  // Fallback: if parsing fails, render raw text nicely
+  if (!empathyMatch) {
+    return `<div class="msg-bubble" style="background:var(--pale-green)">${raw.replace(/\n/g,'<br>')}</div>`;
+  }
+
+  let html = `<div class="msg-bubble" style="background:var(--pale-green);max-width:100%">`;
+
+  if (empathyMatch) {
+    html += `<p style="margin-bottom:12px">${empathyMatch[1].trim().replace(/\n/g,'<br>')}</p>`;
+  }
+
+  if (lawsMatch) {
+    const lawLines = lawsMatch[1].trim().split('\n').filter(l => l.startsWith('LAW::'));
+    if (lawLines.length) {
+      html += `<p style="font-size:0.78rem;font-weight:700;letter-spacing:0.05em;color:var(--deep-sage);text-transform:uppercase;margin-bottom:8px">⚖️ Laws That Protect You</p>`;
+      lawLines.forEach(line => {
+        const parts = line.replace('LAW::','').split('::');
+        const title = parts[0] || '';
+        const explanation = parts[1] || '';
+        const step = parts[2] || '';
+        html += `
+          <div class="chat-law-card">
+            <div class="chat-law-title">
+              <span class="chat-law-badge">LAW</span>
+              ${title}
+            </div>
+            <div class="chat-law-body">${explanation}</div>
+            ${step ? `<div class="chat-law-body" style="margin-top:6px;color:var(--deep-sage)"><strong>→ Next step:</strong> ${step}</div>` : ''}
+          </div>`;
+      });
+    }
+  }
+
+  if (helplinesMatch) {
+    const hlLines = helplinesMatch[1].trim().split('\n').filter(l => l.startsWith('HELPLINE::'));
+    if (hlLines.length) {
+      html += `<div class="chat-helpline"><strong>📞 Helplines for You</strong>`;
+      hlLines.forEach(line => {
+        const parts = line.replace('HELPLINE::','').split('::');
+        html += `<div style="margin-top:3px"><strong>${parts[0]}:</strong> ${parts[1]}</div>`;
+      });
+      html += `</div>`;
+    }
+  }
+
+  if (closingMatch) {
+    html += `<p style="margin-top:12px;font-style:italic;color:var(--deep-sage)">${closingMatch[1].trim()}</p>`;
+  }
+
+  html += `</div>`;
+  return html;
+}
+
+function addMessage(role, contentHtml, isRaw = false) {
+  const messages = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+
+  const avatar = document.createElement('div');
+  avatar.className = 'msg-avatar';
+  avatar.textContent = role === 'bigsis' ? '🌿' : '👤';
+
+  const bubble = document.createElement('div');
+  if (isRaw) {
+    bubble.innerHTML = contentHtml;
+  } else {
+    bubble.className = 'msg-bubble';
+    bubble.innerHTML = contentHtml;
+  }
+
+  div.appendChild(avatar);
+  div.appendChild(bubble);
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+  return div;
+}
+
+function addTypingIndicator() {
+  const messages = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'msg bigsis';
+  div.id = 'typingIndicator';
+
+  const avatar = document.createElement('div');
+  avatar.className = 'msg-avatar';
+  avatar.textContent = '🌿';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+  bubble.innerHTML = '<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+
+  div.appendChild(avatar);
+  div.appendChild(bubble);
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function removeTypingIndicator() {
+  const el = document.getElementById('typingIndicator');
+  if (el) el.remove();
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const text = input.value.trim();
+  if (!text) return;
+
+  // Hide quick prompts after first message
+  document.getElementById('quickPrompts').style.display = 'none';
+
+  // Add user message
+  addMessage('user', text.replace(/\n/g,'<br>'));
+  conversationHistory.push({ role: 'user', content: text });
+  input.value = '';
+  input.style.height = 'auto';
+  sendBtn.disabled = true;
+
+  // Show typing
+  addTypingIndicator();
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: BIG_SIS_SYSTEM,
+        messages: conversationHistory
+      })
+    });
+
+    const data = await response.json();
+    const raw = data.content?.map(c => c.text || '').join('') || '';
+
+    removeTypingIndicator();
+
+    // Push assistant response to history
+    conversationHistory.push({ role: 'assistant', content: raw });
+
+    // Render parsed response
+    const rendered = parseAndRenderBigSisResponse(raw);
+    addMessage('bigsis', rendered, true);
+
+  } catch (err) {
+    removeTypingIndicator();
+    addMessage('bigsis', `I'm here with you — there seems to be a connection issue. Please try again, or call the Women's Helpline directly: <strong>181</strong> (free, 24/7).`);
+  }
+
+  sendBtn.disabled = false;
+  document.getElementById('chatMessages').scrollTop = 99999;
+}
+
+function sendQuick(btn, text) {
+  document.getElementById('chatInput').value = text;
+  sendMessage();
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+}
+
+</script>
+</body>
+</html>
